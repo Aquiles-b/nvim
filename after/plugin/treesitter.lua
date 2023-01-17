@@ -9,7 +9,7 @@ configs.setup {
     ignore_install = {""},
     highlight = {
         enable = true,
-        disable = {""},
+        disable = {"markdown"},
         additional_vim_regex_highlighting = true,
     },
     indent = {enable = true, disable = {""}},
