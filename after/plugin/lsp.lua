@@ -29,21 +29,22 @@ local i = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 
 require("luasnip").add_snippets('c', {
-    s('#padr', fmt([[
+    s('#ip', fmt([[
     #include <stdio.h>
     #include <stdlib.h>
     #include "{}"
 
     ]], {i(1, "Header")})),
 
-    s('#ba', fmt([[
+    s('#ib', fmt([[
     #include <stdio.h>
 
     int main(){{
+        {}
         
         return 0;
     }}
-    ]],{})
+    ]],{i(1)})
     ),
 
     s('func', fmt([[
@@ -77,6 +78,17 @@ require("luasnip").add_snippets('c', {
 
     s('pt', fmt([[
     printf ("{}\n");
-    ]], {i(1)}))
+    ]], {i(1)})),
+
+    s('fo', fmt([[
+    for ({}; {}; {}){{
+        {}
+    }}
+    ]], {
+            i(1, "init"),
+            i(2, "cond"),
+            i(3, "incr"),
+            i(4)
+        }))
 
    })

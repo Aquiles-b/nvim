@@ -26,7 +26,7 @@
 `<alt + > >` = Move buffer to right.  
 `<alt + [1..9] >` = Goto buffer in position.  
 `<alt + c >` = Close buffer.  
-`<space + rw>` = Replace word under the cursor in buffer.  
+`<space + acw>` = Replace word under the cursor in buffer.  
 `<space + ts>` = Toggle treesitter highlight.  
 #### Lsp
 `< [d >` = Previous diagnostic LSP.  
@@ -39,9 +39,30 @@
 `< gD >` = Jumps to the declaration of the symbol under the cursor. Some servers don't implement this feature.  
 `< gi >` = Lists all the implementations for the symbol under the cursor in the quickfix window.  
 `< go >` Jumps to the definition of the type of the symbol under the cursor.  
-
+#### Surround
+`< space + " >` = Surround word with "word".   
+`< space + ' >` = Surround word with 'word'.   
+`< space + [ >` = Surround word with [word].   
+`< space + ( >` = Surround word with (word).   
+`< space + { >` = Surround word with {word}.   
+`< space + cq' >` = Change de surround "word" to 'word'.   
+`< space + cq" >` = Change de surround 'word' to "word".   
+`< css >` = Change the closest surround.    
+`< space + tw >` = Surround word with a tag <>.    
+`< space + tl >` = Surround line with a tag <>.    
+`< space + d( >` = Delete () around.     
+`< space + d[ >` = Delete [] around.     
+`< space + d{ >` = Delete {} around.     
+`< space + d' >` = Delete '' around.     
+`< space + d" >` = Delete "" around.     
+## ------Visual mode --------------------
+`< ( >` = Surround selection with (selection).   
+`< [ >` = Surround selection with [selection].   
+`< { >` = Surround selection with {selection}.   
+`< " >` = Surround selection with "selection".   
+`< ' >` = Surround selection with 'selection'.   
+`< t >` = Surround selection with a tag.      
 ## ------Insert mode --------------------
-
 `<alt + f>` = Goto the end of the line.  
 `<alt + d>` = Goto the begin of the line.  
 `<alt + l>` = Move to right.  

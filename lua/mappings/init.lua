@@ -3,7 +3,30 @@ vim.g.mapleader = ' '
 local opts = {noremap = true, silent = true}
 
 --replace
-vim.keymap.set("n", "<leader>rw", [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>acw", [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
+
+--Changes 
+vim.cmd([[map <Leader>" ysiw"]])
+vim.cmd([[map <Leader>' ysiw']])
+vim.cmd([[map <Leader>[ ysiw] ]])
+vim.cmd([[map <Leader>{ ysiw} ]])
+vim.cmd([[map <Leader>( ysiw) ]])
+vim.cmd([[map <Leader>cq' cs"' ]])
+vim.cmd([[map <Leader>cq" cs'" ]])
+vim.cmd([[map <Leader>tw ysiwt ]])
+vim.cmd([[map <Leader>tl ysst ]])
+vim.cmd([[map <Leader>d( ds) ]])
+vim.cmd([[map <Leader>d[ ds] ]])
+vim.cmd([[map <Leader>d{ ds} ]])
+vim.cmd([[map <Leader>d' ds' ]])
+vim.cmd([[map <Leader>d" ds" ]])
+
+vim.cmd([[vmap ( S) ]])
+vim.cmd([[vmap [ S] ]])
+vim.cmd([[vmap { S} ]])
+vim.cmd([[vmap " S"]])
+vim.cmd([[vmap ' S']])
+vim.cmd([[vmap t St ]])
 
 --treesitter
 map('n', '<leader>ts', ':TSBufToggle highlight<CR>', opts)

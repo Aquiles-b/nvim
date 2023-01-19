@@ -3,6 +3,7 @@ if not ok then return end
 
 return packer.startup{function(use)
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use  {"kylechui/nvim-surround", tag="*"}
     use '/p00f/nvim-ts-rainbow'
     use { "catppuccin/nvim", as = "catppuccin" }
     use 'wbthomason/packer.nvim'
