@@ -11,8 +11,6 @@ vim.cmd([[map <Leader>' ysiw']])
 vim.cmd([[map <Leader>[ ysiw] ]])
 vim.cmd([[map <Leader>{ ysiw} ]])
 vim.cmd([[map <Leader>( ysiw) ]])
-vim.cmd([[map <Leader>cq' cs"' ]])
-vim.cmd([[map <Leader>cq" cs'" ]])
 vim.cmd([[map <Leader>tw ysiwt ]])
 vim.cmd([[map <Leader>tl ysst ]])
 vim.cmd([[map <Leader>d( ds) ]])
@@ -29,7 +27,7 @@ vim.cmd([[vmap ' S']])
 vim.cmd([[vmap t St ]])
 
 --treesitter
-map('n', '<leader>ts', ':TSBufToggle highlight<CR>', opts)
+map('n', '<leader>tss', ':TSBufToggle highlight<CR>', opts)
 
 --comment
 map('n', '<leader>c', ':CommentToggle<CR>', opts)

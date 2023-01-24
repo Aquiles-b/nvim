@@ -27,7 +27,7 @@
 `<alt + [1..9] >` = Goto buffer in position.  
 `<alt + c >` = Close buffer.  
 `<space + acw>` = Replace word under the cursor in buffer.  
-`<space + ts>` = Toggle treesitter highlight.  
+`<space + tss>` = Toggle treesitter highlight.  
 #### Lsp
 `< [d >` = Previous diagnostic LSP.  
 `< ]d >` = Next diagnostic LSP.  
@@ -45,8 +45,6 @@
 `< space + [ >` = Surround word with [word].   
 `< space + ( >` = Surround word with (word).   
 `< space + { >` = Surround word with {word}.   
-`< space + cq' >` = Change de surround "word" to 'word'.   
-`< space + cq" >` = Change de surround 'word' to "word".   
 `< css >` = Change the closest surround.    
 `< space + tw >` = Surround word with a tag <>.    
 `< space + tl >` = Surround line with a tag <>.    
