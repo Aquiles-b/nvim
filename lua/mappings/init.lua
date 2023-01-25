@@ -40,6 +40,7 @@ map('n', '<leader>e', ':NvimTreeToggle<CR>', opts)
 map('n', '<leader>w', ':w!<CR>', opts)
 map('n', '<leader>q', ':q!<CR>', opts)
 --term
+map('t', '<C-o>', '<C-\\><C-n>', opts)
 map('n', '<A-i>', ':ToggleTerm direction=float<CR>', opts)
 map('n', '<A-h>', ':ToggleTerm direction=horizontal size=20<CR>', opts)
 map('t', '<A-i>', '<C-c> <cmd>close<CR>', opts)
