@@ -58,6 +58,10 @@ map('i', '<C-k>', '->', opts)
 map('i', '<A-j>', '<Esc>o', opts)
 map('i', '<A-;>', '<Esc><S-a>;<Esc>', opts)
 
+--Mover seleção de código
+map('v', '<C-j>', ":m '>+1<CR>gv=gv", opts)
+map('v', '<C-k>', ":m '<-2<CR>gv=gv", opts)
+
 map('n', '<C-h>', '<C-w>h', opts)
 map('n', '<C-l>', '<C-w>l', opts)
 map('n', '<C-k>', '<C-w>k', opts)
