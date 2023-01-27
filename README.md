@@ -17,7 +17,7 @@
 `<ctrl + h>` = Move to left split.  
 `<ctrl + j>` = Move to split below.  
 `<ctrl + k>` = Move to split above.  
-`<ctrl + l>` = Move to righ split.
+`<ctrl + l>` = Move to righ split.   
 `<space + fe>` = Open a tree for symbols using LSP.(? show help message)      
 `<space + tn>` = Toggle relative numbers.   
 #### Buffers
