@@ -7,6 +7,7 @@ set.shiftwidth = 4
 set.tabstop = 4
 set.smarttab = true
 set.background = 'dark'
+set.rnu = true
 
 set.ignorecase = true
 set.hlsearch = false

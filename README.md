@@ -1,5 +1,3 @@
-‼‼ Run `:PackerSync`  
-
 # Commands 
 
 ## ------Normal mode --------------------
@@ -20,6 +18,8 @@
 `<ctrl + j>` = Move to split below.  
 `<ctrl + k>` = Move to split above.  
 `<ctrl + l>` = Move to righ split.
+`<space + fe>` = Open a tree for symbols using LSP.(? show help message)      
+`<space + tn>` = Toggle relative numbers.   
 #### Buffers
 `<alt + ,>` = Previous buffer.  
 `<alt + .>` = Next buffer.  
@@ -40,27 +40,9 @@
 `< gD >` = Jumps to the declaration of the symbol under the cursor. Some servers don't implement this feature.  
 `< gi >` = Lists all the implementations for the symbol under the cursor in the quickfix window.  
 `< go >` Jumps to the definition of the type of the symbol under the cursor.  
-#### Surround
-`< space + " >` = Surround word with "word".   
-`< space + ' >` = Surround word with 'word'.   
-`< space + [ >` = Surround word with [word].   
-`< space + ( >` = Surround word with (word).   
-`< space + { >` = Surround word with {word}.   
-`< css >` = Change the closest surround.    
-`< space + tw >` = Surround word with a tag <>.    
-`< space + tl >` = Surround line with a tag <>.    
-`< space + d( >` = Delete () around.     
-`< space + d[ >` = Delete [] around.     
-`< space + d{ >` = Delete {} around.     
-`< space + d' >` = Delete '' around.     
-`< space + d" >` = Delete "" around.     
 ## ------Visual mode --------------------
-`< ( >` = Surround selection with (selection).   
-`< [ >` = Surround selection with [selection].   
-`< { >` = Surround selection with {selection}.   
-`< " >` = Surround selection with "selection".   
-`< ' >` = Surround selection with 'selection'.   
-`< t >` = Surround selection with a tag.      
+`<Ctrl - j>` = Move selection down.   
+`<Ctrl - k>` = Move selection up.   
 ## ------Insert mode --------------------
 `<alt + f>` = Goto the end of the line.  
 `<alt + d>` = Goto the begin of the line.  

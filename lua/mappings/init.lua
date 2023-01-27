@@ -5,27 +5,6 @@ local opts = {noremap = true, silent = true}
 --replace
 vim.keymap.set("n", "<leader>acw", [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
 
---Changes 
-vim.cmd([[map <Leader>" ysiw"]])
-vim.cmd([[map <Leader>' ysiw']])
-vim.cmd([[map <Leader>[ ysiw] ]])
-vim.cmd([[map <Leader>{ ysiw} ]])
-vim.cmd([[map <Leader>( ysiw) ]])
-vim.cmd([[map <Leader>tw ysiwt ]])
-vim.cmd([[map <Leader>tl ysst ]])
-vim.cmd([[map <Leader>d( ds) ]])
-vim.cmd([[map <Leader>d[ ds] ]])
-vim.cmd([[map <Leader>d{ ds} ]])
-vim.cmd([[map <Leader>d' ds' ]])
-vim.cmd([[map <Leader>d" ds" ]])
-
-vim.cmd([[vmap ( S) ]])
-vim.cmd([[vmap [ S] ]])
-vim.cmd([[vmap { S} ]])
-vim.cmd([[vmap " S"]])
-vim.cmd([[vmap ' S']])
-vim.cmd([[vmap t St ]])
-
 --treesitter
 map('n', '<leader>tss', ':TSBufToggle highlight<CR>', opts)
 
@@ -42,7 +21,7 @@ map('n', '<leader>q', ':q!<CR>', opts)
 --term
 map('t', '<C-o>', '<C-\\><C-n>', opts)
 map('n', '<A-i>', ':ToggleTerm direction=float<CR>', opts)
-map('n', '<A-h>', ':ToggleTerm direction=horizontal size=20<CR>', opts)
+map('n', '<A-h>', ':ToggleTerm direction=horizontal size=15<CR>', opts)
 map('t', '<A-i>', '<C-c> <cmd>close<CR>', opts)
 map('t', '<A-h>', '<C-c> <cmd>close<CR>', opts)
 map('t', '<A-m>', 'make run<CR>', opts)
@@ -57,6 +36,9 @@ map('v', '<C-o>', '<Esc>', opts)
 map('i', '<C-k>', '->', opts)
 map('i', '<A-j>', '<Esc>o', opts)
 map('i', '<A-;>', '<Esc><S-a>;<Esc>', opts)
+map('n', '<leader>tn', ':set rnu!<CR>', opts)
+
+map('n', '<leader>fe', ':SymbolsOutlineOpen<CR>', opts)
 
 --Mover seleção de código
 map('v', '<C-j>', ":m '>+1<CR>gv=gv", opts)

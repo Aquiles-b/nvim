@@ -3,7 +3,6 @@ if not ok then return end
 
 return packer.startup{function(use)
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-    use  {"kylechui/nvim-surround", tag="*"}
     use '/p00f/nvim-ts-rainbow'
     use { "catppuccin/nvim", as = "catppuccin" }
     use 'wbthomason/packer.nvim'
@@ -16,6 +15,7 @@ return packer.startup{function(use)
     use "akinsho/toggleterm.nvim"
     use 'nvim-lualine/lualine.nvim'
     use 'romgrk/barbar.nvim'
+    use 'simrat39/symbols-outline.nvim'
     use "windwp/nvim-autopairs"
     use "terrortylor/nvim-comment"
     use "Yggdroot/indentLine"
