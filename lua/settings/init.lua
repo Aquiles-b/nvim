@@ -1,6 +1,5 @@
 local set = vim.opt
-	
-set.syntax = 'on' 
+set.syntax = 'on'
 set.expandtab = true
 set.scrolloff = 8
 set.shiftwidth = 4
@@ -14,7 +13,6 @@ set.hlsearch = false
 set.incsearch = true
 set.smartcase = true
 set.fileencoding = 'utf-8'
-
 set.cursorline = true
 
 set.termguicolors = true
