@@ -19,6 +19,7 @@ return packer.startup{function(use)
     use "windwp/nvim-autopairs"
     use "terrortylor/nvim-comment"
     use "Yggdroot/indentLine"
+    use "onsails/lspkind.nvim"
     use {
       'VonHeikemen/lsp-zero.nvim',
         requires = {

@@ -1,5 +1,5 @@
 local lsp = require('lsp-zero')
-lsp.preset('recommended')
+lsp.preset('lsp-compe')
 
 lsp.set_preferences({
   sign_icons = {
@@ -22,81 +22,32 @@ lsp.configure('sumneko_lua', {
 
 lsp.setup()
 
+local cmp = require('cmp')
+local lspkind = require('lspkind')
+
+local cmp_config = lsp.defaults.cmp_config({
+    window = {
+        completion = cmp.config.window.bordered({border = "single"}),
+    },
+
+    sources = {
+        {name = "nvim_lsp", keyword_length = 2},
+        {name = "luasnip", keyword_length = 3},
+        {name = "path", keyword_length = 3},
+        {name = "buffer", keyword_length = 3},
+        {name = "nvim_lua", keyword_length = 2},
+    },
+    formatting = {
+        format = lspkind.cmp_format(),
+    },
+})
+
+cmp.setup(cmp_config)
+
 vim.diagnostic.config({
     virtual_text = true,
 })
 
---cmp configurations
-local icons = {
-    Text = "",
-    Method = "",
-    Function = "",
-    Constructor = "",
-    Field = "ﰠ",
-    Variable = "",
-    Class = "ﴯ",
-    Interface = "",
-    Module = "",
-    Property = "ﰠ",
-    Unit = "塞",
-    Value = "",
-    Enum = "",
-    Keyword = "",
-    Snippet = "",
-    Color = "",
-    File = "",
-    Reference = "",
-    Folder = "",
-    EnumMember = "",
-    Constant = "",
-    Struct = "פּ",
-    Event = "",
-    Operator = "",
-    TypeParameter = ""
-}
-
-
-vim.api.nvim_set_hl(0, "CmpItemKindText", { fg = "#c6c6c6"})
-    vim.api.nvim_set_hl(0, "CmpItemKindMethod", { fg = "#7292fa"})
-    vim.api.nvim_set_hl(0, "CmpItemKindFunction", { fg = "#40e0d0"})
-    vim.api.nvim_set_hl(0, "CmpItemKindConstructor", { fg = "#eee006"})
-    vim.api.nvim_set_hl(0, "CmpItemKindField", { fg = "#72fa9b"})
-    vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = "#fe902f"})
-    vim.api.nvim_set_hl(0, "CmpItemKindClass", { fg = "#9285c9"})
-    vim.api.nvim_set_hl(0, "CmpItemKindInterface", { fg = "#fdfd96"})
-    vim.api.nvim_set_hl(0, "CmpItemKindModule", { fg = ""})
-    vim.api.nvim_set_hl(0, "CmpItemKindProperty", { fg = ""})
-    vim.api.nvim_set_hl(0, "CmpItemKindUnit", { fg = ""})
-    vim.api.nvim_set_hl(0, "CmpItemKindValue", { fg = ""})
-    vim.api.nvim_set_hl(0, "CmpItemKindEnum", { fg = ""})
-    vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { fg = "#f94646"})
-    vim.api.nvim_set_hl(0, "CmpItemKindSnippet", { fg = "#d073fc"})
-    vim.api.nvim_set_hl(0, "CmpItemKindColor", { fg = "#ebebeb"})
-    vim.api.nvim_set_hl(0, "CmpItemKindFile", { fg = "#ecbbc9"})
-    vim.api.nvim_set_hl(0, "CmpItemKindReference", { fg = ""})
-    vim.api.nvim_set_hl(0, "CmpItemKindFolder", { fg = "#d69e17"})
-    vim.api.nvim_set_hl(0, "CmpItemKindEnumMember", { fg = ""})
-    vim.api.nvim_set_hl(0, "CmpItemKindConstant", { fg = "#e8f388"})
-    vim.api.nvim_set_hl(0, "CmpItemKindStruct", { fg = "#ffdb58"})
-    vim.api.nvim_set_hl(0, "CmpItemKindEvent", { fg = ""})
-    vim.api.nvim_set_hl(0, "CmpItemKindOperator", { fg = ""})
-    vim.api.nvim_set_hl(0, "CmpItemKindTypeParameter", { fg = ""})
-
-local cmp = require('cmp')
-
-cmp.setup {
-    window = {
-        completion = cmp.config.window.bordered({border = "single"}),
-    },
-    formatting = {
-        format = function(_, vim_item)
-            vim_item.kind = (icons[vim_item.kind] or "foo") .. " " .. vim_item.kind
-            return vim_item
-        end,
-    },
-}
-
---luasnips
 
 local ls = require("luasnip")
 local s = ls.snippet
