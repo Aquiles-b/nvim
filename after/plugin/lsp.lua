@@ -32,14 +32,34 @@ local cmp_config = lsp.defaults.cmp_config({
 
     sources = {
         {name = "nvim_lsp", keyword_length = 2},
-        {name = "luasnip", keyword_length = 3},
+        {name = "luasnip", keyword_length = 2},
         {name = "path", keyword_length = 3},
-        {name = "buffer", keyword_length = 3},
+        {name = "buffer", keyword_length = 2},
         {name = "nvim_lua", keyword_length = 2},
     },
     formatting = {
-        format = lspkind.cmp_format(),
+        format = lspkind.cmp_format({
+            maxwidth = 50,
+            ellipsis_char = '...',
+
+            before = function (entry, vim_item)
+                local final = "()"
+                vim_item.abbr = vim_item.abbr:match("[^(]+")
+
+                if vim_item.kind == "Function" or vim_item.kind == "Method" then
+                vim_item.abbr = vim_item.abbr .. final
+                end
+                return vim_item
+            end
+        }),
     },
+
+    sorting = {
+        comparators = {
+            cmp.config.compare.exact,
+            cmp.config.compare.locality,
+        }
+    }
 })
 
 cmp.setup(cmp_config)
