@@ -27,17 +27,20 @@ local lspkind = require('lspkind')
 
 local cmp_config = lsp.defaults.cmp_config({
     window = {
-        completion = cmp.config.window.bordered({border = "single"}),
+        completion = cmp.config.window.bordered({
+            border = "single",
+        }),
     },
 
     sources = {
         {name = "nvim_lsp", keyword_length = 2},
         {name = "luasnip", keyword_length = 2},
         {name = "path", keyword_length = 3},
-        {name = "buffer", keyword_length = 2},
+        {name = "buffer", keyword_length = 3},
         {name = "nvim_lua", keyword_length = 2},
     },
     formatting = {
+        fields = {"menu", "abbr", "kind"},
         format = lspkind.cmp_format({
             maxwidth = 50,
             ellipsis_char = '...',
@@ -45,10 +48,12 @@ local cmp_config = lsp.defaults.cmp_config({
             before = function (entry, vim_item)
                 local final = "()"
                 vim_item.abbr = vim_item.abbr:match("[^(]+")
+                vim_item.abbr = vim_item.abbr:gsub("%s+","")
 
-                if vim_item.kind == "Function" or vim_item.kind == "Method" then
-                vim_item.abbr = vim_item.abbr .. final
+                if vim_item.kind == "Function" or  vim_item.kind == "Method" then
+                vim_item.abbr = vim_item.abbr:gsub("%s+","") .. final
                 end
+                vim_item.menu = ""
                 return vim_item
             end
         }),
