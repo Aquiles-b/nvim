@@ -1,3 +1,3 @@
-require('settings')
-require('packer-config')
-require('mappings')
+require('keybinds')
+require('options')
+require('plugins')
