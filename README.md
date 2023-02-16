@@ -1,3 +1,4 @@
+Lazy   
 # Commands 
 
 ## ------Normal mode --------------------
