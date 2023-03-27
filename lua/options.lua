@@ -3,6 +3,7 @@ set.syntax = 'on'
 set.expandtab = true
 set.scrolloff = 8
 set.shiftwidth = 4
+set.colorcolumn = '80'
 set.tabstop = 4
 set.smarttab = true
 set.background = 'dark'
