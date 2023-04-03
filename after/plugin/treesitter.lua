@@ -4,7 +4,7 @@ if not status then
 end
 
 configs.setup {
-    ensure_installed = { "bash", "c", "lua", "vim", "help", "python"},
+    ensure_installed = {},
     sync_install = false,
     ignore_install = {""},
     highlight = {
