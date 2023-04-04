@@ -21,11 +21,8 @@
 `<space + fe>` = Open a tree for symbols using LSP.(? show help message)      
 `<space + tn>` = Toggle relative numbers.   
 #### Buffers
-`<alt + ,>` = Previous buffer.  
-`<alt + .>` = Next buffer.  
-`<alt + < >` = Move buffer to left.  
-`<alt + > >` = Move buffer to right.  
-`<alt + [1..9] >` = Goto buffer in position.  
+`<alt + h>` = Previous buffer.  
+`<alt + l>` = Next buffer.  
 `<alt + c >` = Close buffer.  
 `<space + acw>` = Replace word under the cursor in buffer.  
 `<space + tss>` = Toggle treesitter highlight.  
