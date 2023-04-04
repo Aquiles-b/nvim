@@ -28,7 +28,6 @@ lazy.setup({
     'nvim-tree/nvim-web-devicons',
     "akinsho/toggleterm.nvim",
     'nvim-lualine/lualine.nvim',
-    'romgrk/barbar.nvim',
     'simrat39/symbols-outline.nvim',
     "windwp/nvim-autopairs",
     "terrortylor/nvim-comment",
