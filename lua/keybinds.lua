@@ -2,6 +2,9 @@ local map = vim.api.nvim_set_keymap
 vim.g.mapleader = ' '
 local opts = {noremap = true, silent = true}
 
+--autoindent
+map('n', '₢', "mmgg=G'm", opts)
+
 --replace
 vim.keymap.set("n", "<leader>acw", [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
 
