@@ -6,6 +6,7 @@ Lazy
 `<space + w>` = Save!  
 `<space + q>` = Quit!  
 `<space + c >` = Comment line or block.
+`<altgr + c>` = Auto indent.  
 #### Files
 `<space + ff>` = Telescope find_files.   
 `<space + fg>` = Telescope live_grep.   
@@ -22,12 +23,8 @@ Lazy
 `<space + fe>` = Open a tree for symbols using LSP.(? show help message)      
 `<space + tn>` = Toggle relative numbers.   
 #### Buffers
-`<alt + ,>` = Previous buffer.  
-`<alt + .>` = Next buffer.  
-`<alt + < >` = Move buffer to left.  
-`<alt + > >` = Move buffer to right.  
-`<alt + [1..9] >` = Goto buffer in position.  
-`<alt + c >` = Close buffer.  
+`<alt + h>` = Previous buffer.  
+`<alt + l>` = Next buffer.  
 `<space + acw>` = Replace word under the cursor in buffer.  
 `<space + tss>` = Toggle treesitter highlight.  
 #### Lsp
