@@ -1,1 +1,1 @@
-require("catppuccin").load("macchiato")
+require("catppuccin").load("frappe")

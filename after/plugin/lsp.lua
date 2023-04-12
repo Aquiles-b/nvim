@@ -42,7 +42,7 @@ local cmp_config = lsp.defaults.cmp_config({
     formatting = {
         fields = {"menu", "abbr", "kind"},
         format = lspkind.cmp_format({
-            maxwidth = 50,
+            maxwidth = 15,
             ellipsis_char = '...',
 
             before = function (entry, vim_item)

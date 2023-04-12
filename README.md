@@ -4,7 +4,8 @@
 #### Basic
 `<space + w>` = Save!  
 `<space + q>` = Quit!  
-`<space + c >` = Comment line or block.
+`<space + c >` = Comment line or block.   
+`<altgr + c>` = Auto indent.  
 #### Files
 `<space + ff>` = Telescope find_files.   
 `<space + fg>` = Telescope live_grep.   
