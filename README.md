@@ -1,4 +1,3 @@
-Lazy   
 # Commands 
 
 ## ------Normal mode --------------------
@@ -25,6 +24,7 @@ Lazy
 #### Buffers
 `<alt + h>` = Previous buffer.  
 `<alt + l>` = Next buffer.  
+`<alt + c >` = Close buffer.  
 `<space + acw>` = Replace word under the cursor in buffer.  
 `<space + tss>` = Toggle treesitter highlight.  
 #### Lsp
