@@ -9,6 +9,7 @@ set.smarttab = true
 set.background = 'dark'
 set.rnu = true
 
+vim.cmd [[set noshowmode]]
 set.ignorecase = true
 set.hlsearch = false
 set.incsearch = true
@@ -21,5 +22,8 @@ set.termguicolors = true
 set.hidden = true
 set.number = true
 
-vim.cmd([[let g:indentLine_char_list = ['|', '¦', '┆', '┊'] ]])
+vim.cmd([[let g:indentLine_char_list = ['│', '¦', '┆', '┊'] ]])
 vim.cmd([[let g:indentLine_setColors = 0]])
+vim.opt.numberwidth = 1
+vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '' : v:lnum) : ''}%=%s"
+vim.cmd [[set signcolumn=yes:1]]

@@ -1,16 +1,15 @@
 local lsp = require('lsp-zero')
 lsp.preset('lsp-compe')
-
 lsp.set_preferences({
   sign_icons = {
-    error = '',
-    warn = '',
-    hint = '',
-    info = ''
+    error = '│',
+    warn  = '│',
+    hint  = '│',
+    info  = '│'
   }
 })
 
-lsp.configure('sumneko_lua', {
+lsp.configure('lua-language-server', {
     settings = {
         Lua = {
             diagnostics = {
@@ -70,7 +69,7 @@ local cmp_config = lsp.defaults.cmp_config({
 cmp.setup(cmp_config)
 
 vim.diagnostic.config({
-    virtual_text = true,
+    virtual_text = false,
 })
 
 
@@ -90,7 +89,8 @@ require("luasnip").add_snippets('c', {
     s('#ib', fmt([[
     #include <stdio.h>
 
-    int main(){{
+    int main()
+    {{
         {}
 
         return 0;
@@ -99,7 +99,8 @@ require("luasnip").add_snippets('c', {
     ),
 
     s('func', fmt([[
-    {} {}({}){{
+    {} {}({})
+    {{
         {}
         return {};
     }}
@@ -111,7 +112,8 @@ require("luasnip").add_snippets('c', {
         })),
 
     s('voi', fmt([[
-    void {}({}){{
+    void {}({}) 
+    {{
         {}
     }}
     ]], {
@@ -132,8 +134,8 @@ require("luasnip").add_snippets('c', {
     ]], {i(1)})),
 
     s('fo', fmt([[
-    for ({}; {}; {}){{
-        {}
+    for ({}; {}; {}) {{
+            {}
     }}
     ]], {
             i(1, "init"),
