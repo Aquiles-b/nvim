@@ -2,7 +2,7 @@ require('lualine').setup {
     options = {
         disabled_filetypes = { statusline = {'packer','NvimTree'} },
         icons_enabled = true,
-        theme = '',
+        theme = 'auto',
         component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},
         always_divide_middle = true,
