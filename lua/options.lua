@@ -24,6 +24,6 @@ set.number = true
 
 vim.cmd([[let g:indentLine_char_list = ['│', '¦', '┆', '┊'] ]])
 vim.cmd([[let g:indentLine_setColors = 0]])
-vim.opt.numberwidth = 1
-vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '' : v:lnum) : ''}%=%s"
+vim.opt.numberwidth = 3
+vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum) : ''}%=%s"
 vim.cmd [[set signcolumn=yes:1]]
