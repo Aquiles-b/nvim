@@ -31,7 +31,7 @@ lazy.setup({
     'simrat39/symbols-outline.nvim',
     "windwp/nvim-autopairs",
     "terrortylor/nvim-comment",
-    "Yggdroot/indentLine",
+    "lukas-reineke/indent-blankline.nvim",
     "onsails/lspkind.nvim",
 
     'VonHeikemen/lsp-zero.nvim',

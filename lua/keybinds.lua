@@ -2,7 +2,7 @@ local map = vim.api.nvim_set_keymap
 vim.g.mapleader = ' '
 local opts = {noremap = true, silent = true}
 
---autoindent
+--autoindent altgr+c
 map('n', '₢', "mmgg=G'mzz", opts)
 map('n', '©', "mmgg=G'mzz", opts)
 
@@ -25,9 +25,9 @@ map('n', '<leader>q', ':q!<CR>', opts)
 --term
 map('t', '<C-o>', '<C-\\><C-n>', opts)
 map('n', '<A-i>', ':ToggleTerm direction=float<CR>', opts)
-map('n', '<A-h>', ':ToggleTerm direction=horizontal size=15<CR>', opts)
+map('n', '<A-b>', ':ToggleTerm direction=horizontal size=15<CR>', opts)
 map('t', '<A-i>', '<C-c> <cmd>close<CR>', opts)
-map('t', '<A-h>', '<C-c> <cmd>close<CR>', opts)
+map('t', '<A-b>', '<C-c> <cmd>close<CR>', opts)
 map('t', '<A-m>', 'make run<CR>', opts)
 --Movimentacao
 map('i', '<A-f>', '<C-o><S-a>', opts)
@@ -40,9 +40,8 @@ map('v', '<C-o>', '<Esc>', opts)
 map('i', '<C-k>', '->', opts)
 map('i', '<A-j>', '<Esc>o', opts)
 map('i', '<A-;>', '<Esc><S-a>;<Esc>', opts)
-map('n', '<leader>tn', ':set rnu!<CR>', opts)
 
-map('n', '<leader>fe', ':SymbolsOutlineOpen<CR>', opts)
+map('n', '<leader>fe', ':SymbolsOutline<CR>', opts)
 
 --Mover seleção de código
 map('v', '<C-j>', ":m '>+1<CR>gv=gv", opts)
@@ -58,4 +57,3 @@ map('n', '<A-l>', ':bnext<CR>', opts)
 map('n', '<A-h>', ':bprevious<CR>', opts)
 -- Close buffer
 map('n', '<A-c>', ':bdelete!<CR>', opts)
--- Magic buffer-picking mode
