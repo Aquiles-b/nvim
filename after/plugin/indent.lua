@@ -1,16 +1,13 @@
 require("indent_blankline").setup {
-    space_char_blankline = "",
+    char = "│",
     show_current_context = true,
+    show_end_of_line = false,
     show_current_context_start = false,
+    show_trailing_blankline_indent = false,
+    use_treesitter = true,
+    --filetype_exclude = {},
+    vim.api.nvim_set_hl(0, "IndentBlankLineContextChar", {fg = "#FFCCFF", bg = "none"}),
+    vim.api.nvim_set_hl(0, "IndentBlankLineChar", {fg = "#666666", bg = "none"})
 }
---Cor das linhas de indentação
-vim.cmd[[highlight IndentBlanklineChar guifg=#777777 gui=nocombine]]
---Cor das linhas de indentação quando esta no bloco
-vim.cmd[[highlight IndentBlanklineContextChar guifg=#FFccFF gui=nocombine]]
---Usar contexto do treesitter
-vim.cmd[[let g:indent_blankline_use_treesitter = v:true]]
---Mostar o primeiro nivel de indentação.
-vim.cmd[[let g:indent_blankline_show_first_indent_level = v:true]]
---Para tirar indentação em comentários.
-vim.cmd[[let g:indent_blankline_max_indent_increase = 1]]
-vim.cmd[[let g:indent_blankline_show_trailing_blankline_indent = v:false]]
+
+
