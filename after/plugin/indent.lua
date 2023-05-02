@@ -13,5 +13,4 @@ vim.cmd[[let g:indent_blankline_use_treesitter = v:true]]
 vim.cmd[[let g:indent_blankline_show_first_indent_level = v:true]]
 --Para tirar indentação em comentários.
 vim.cmd[[let g:indent_blankline_max_indent_increase = 1]]
-vim.cmd[[let g:indent_blankline_char_list_blankline = ['│', '', '', ''] ]]
-vim.cmd[[let g:indent_blankline_char_list = ['│', '│', '┆', '┊'] ]]
+vim.cmd[[let g:indent_blankline_show_trailing_blankline_indent = v:false]]
