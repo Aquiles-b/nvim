@@ -53,6 +53,18 @@ require("luasnip").add_snippets('c', {
             i(1), 
             i(2, "var")
         })),
+    s('fpt', fmt([[
+    fprintf (stderr, "{}\n");
+    ]], { 
+            i(1, "Aquiii"), 
+        })),
+
+    s('fpv', fmt([[
+    fprintf (stderr, "%d{}", {});
+    ]], { 
+            i(1), 
+            i(2, "var")
+        })),
 
     s('pt', fmt([[
     printf ("{}\n");
