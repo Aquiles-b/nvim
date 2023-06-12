@@ -66,6 +66,12 @@ require("luasnip").add_snippets('c', {
             i(2, "var")
         })),
 
+    s('masi', fmt([[
+    malloc(sizeof({}));
+    ]], { 
+            i(1), 
+        })),
+
     s('pt', fmt([[
     printf("{}\n");
     ]], {i(1)})),
