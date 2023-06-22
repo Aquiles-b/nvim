@@ -25,10 +25,7 @@ map('n', '<leader>q', ':q!<CR>', opts)
 --term
 map('t', '<C-o>', '<C-\\><C-n>', opts)
 map('n', '<A-i>', ':ToggleTerm direction=float<CR>', opts)
-map('n', '<A-b>', ':ToggleTerm direction=horizontal size=15<CR>', opts)
 map('t', '<A-i>', '<C-c> <cmd>close<CR>', opts)
-map('t', '<A-b>', '<C-c> <cmd>close<CR>', opts)
-map('t', '<A-m>', 'make run<CR>', opts)
 --Movimentacao
 map('i', '<A-f>', '<C-o><S-a>', opts)
 map('i', '<A-d>', '<C-o><S-i>', opts)
