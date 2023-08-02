@@ -1,9 +1,4 @@
-local ls = require("luasnip")
-local s = ls.snippet
-local i = ls.insert_node
-local fmt = require("luasnip.extras.fmt").fmt
-
-require("luasnip").add_snippets('c', {
+return {
     s('#ip', fmt([[
     #include <stdio.h>
     #include <stdlib.h>
@@ -87,4 +82,4 @@ require("luasnip").add_snippets('c', {
             i(4)
         }))
 
-})
+}
