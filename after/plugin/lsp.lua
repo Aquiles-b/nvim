@@ -9,16 +9,6 @@ lsp.set_preferences({
   }
 })
 
-lsp.configure('lua-language-server', {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    }
-})
-
 lsp.setup()
 
 local cmp = require('cmp')
