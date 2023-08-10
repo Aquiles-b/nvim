@@ -1,12 +1,10 @@
 local lsp = require('lsp-zero')
 lsp.preset('lsp-compe')
-lsp.set_preferences({
-  sign_icons = {
+lsp.set_sign_icons({
     error = '│',
     warn  = '│',
     hint  = '│',
     info  = '│'
-}
 })
 
 lsp.setup()

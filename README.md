@@ -11,7 +11,7 @@
 `<space + fg>` = Telescope live_grep.   
 `<space + e>`  = NvimTree.
 #### Terminal
-`<Ctrl + o>` = Nvim mode inside terminal (press i to return).   
+`<Ctrl + n>` = Nvim mode inside terminal (press i to return).   
 `<alt + i>` = Float Terminal/ close terminal.  
 `<alt + h>` = Horizontal Terminal/ close terminal.
 #### Movement
@@ -48,5 +48,4 @@
 `<alt + h>` = Move to left.  
 `<alt + j>` = Insert a new line below.  
 `<alt + ;>` = Put a ";" in the end and return to normal mode.  
-`<ctrl + o>` = Normal mode.  
 `<ctrl + k>` = "->".  
