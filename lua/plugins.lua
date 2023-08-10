@@ -19,7 +19,6 @@ lazy.setup({
     'nvim-treesitter/nvim-treesitter',
     '/p00f/nvim-ts-rainbow',
     {"catppuccin/nvim", lazy=false},
-    'wbthomason/packer.nvim',
 
     'nvim-telescope/telescope.nvim',
     'nvim-lua/plenary.nvim',

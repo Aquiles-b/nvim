@@ -6,7 +6,7 @@ lsp.set_preferences({
     warn  = '│',
     hint  = '│',
     info  = '│'
-  }
+}
 })
 
 lsp.setup()
@@ -16,6 +16,9 @@ local lspkind = require('lspkind')
 -- local kind_mapper = {6, 3, 2, 22, 4, 5, 1, 7, 8, 9, 10, 11, 12, 13, 14}
 
 local cmp_config = lsp.defaults.cmp_config({
+    mapping = {
+        ['<A-l>'] = cmp.mapping.confirm({select = true}),
+    },
     window = {
         completion = cmp.config.window.bordered({
             border = "single",
@@ -48,13 +51,6 @@ local cmp_config = lsp.defaults.cmp_config({
             end
         }),
     },
-
-    sorting = {
-        comparators = {
-            cmp.config.compare.exact,
-            cmp.config.compare.locality,
-        }
-    }
 })
 
 cmp.setup(cmp_config)
