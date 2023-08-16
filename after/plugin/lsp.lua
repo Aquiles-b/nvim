@@ -17,6 +17,8 @@ lsp.setup()
 cmp.setup({
     mapping = {
         ['<A-l>'] = cmp.mapping.confirm({select = true}),
+        ['<Tab>'] = cmp.mapping.select_next_item(),
+        ['<S-Tab>'] = cmp.mapping.select_prev_item(),
     },
     window = {
         completion = cmp.config.window.bordered({

@@ -26,5 +26,8 @@ local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
 local k = require("luasnip.nodes.key_indexer").new_key
 
+vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
+vim.keymap.set({"i", "s"}, "<C-D>", function() ls.jump(-1) end, {silent = true})
+
 ls.config.setup({ enable_autosnippets = true })
 require("luasnip.loaders.from_lua").lazy_load { paths = "~/.config/nvim/after/snippets/" }
