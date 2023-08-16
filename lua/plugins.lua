@@ -17,7 +17,7 @@ if not ok then return end
 
 lazy.setup({
     'nvim-treesitter/nvim-treesitter',
-    '/p00f/nvim-ts-rainbow',
+    '/HiPhish/rainbow-delimiters.nvim',
     {"catppuccin/nvim", lazy=false},
 
     'nvim-telescope/telescope.nvim',
