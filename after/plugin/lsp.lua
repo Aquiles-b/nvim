@@ -1,5 +1,9 @@
-local lsp = require('lsp-zero')
-lsp.preset('lsp-compe')
+local lsp = require('lsp-zero').preset({})
+local cmp = require('cmp')
+local lspkind = require('lspkind')
+
+lsp.extend_cmp()
+
 lsp.set_sign_icons({
     error = '│',
     warn  = '│',
@@ -9,11 +13,8 @@ lsp.set_sign_icons({
 
 lsp.setup()
 
-local cmp = require('cmp')
-local lspkind = require('lspkind')
--- local kind_mapper = {6, 3, 2, 22, 4, 5, 1, 7, 8, 9, 10, 11, 12, 13, 14}
 
-local cmp_config = lsp.defaults.cmp_config({
+cmp.setup({
     mapping = {
         ['<A-l>'] = cmp.mapping.confirm({select = true}),
     },
@@ -51,7 +52,11 @@ local cmp_config = lsp.defaults.cmp_config({
     },
 })
 
-cmp.setup(cmp_config)
+lsp.on_attach(function(client, bufnr)
+  -- see :help lsp-zero-keybindings
+  -- to learn the available actions
+  lsp.default_keymaps({buffer = bufnr})
+end)
 
 vim.diagnostic.config({
     virtual_text = false,
