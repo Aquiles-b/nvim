@@ -39,9 +39,11 @@
 `< gi >` = Lists all the implementations for the symbol under the cursor in the quickfix window.  
 `< go >` Jumps to the definition of the type of the symbol under the cursor.  
 ## ------Visual mode --------------------
-`<Ctrl - j>` = Move selection down.   
-`<Ctrl - k>` = Move selection up.   
+`<Ctrl + j>` = Move selection down.   
+`<Ctrl + k>` = Move selection up.   
 ## ------Insert mode --------------------
+`<Ctrl + l` = Goto the next field in snippet   
+`<Ctrl + d` = Goto the previous field in snippet   
 `<alt + f>` = Goto the end of the line.  
 `<alt + d>` = Goto the begin of the line.  
 `<alt + l>` = Move to right.  
