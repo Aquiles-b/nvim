@@ -42,8 +42,8 @@
 `<Ctrl + j>` = Move selection down.   
 `<Ctrl + k>` = Move selection up.   
 ## ------Insert mode --------------------
-`<Ctrl + l` = Goto the next field in snippet   
-`<Ctrl + d` = Goto the previous field in snippet   
+`<Ctrl + l>` = Goto the next field in snippet   
+`<Ctrl + d>` = Goto the previous field in snippet   
 `<alt + f>` = Goto the end of the line.  
 `<alt + d>` = Goto the begin of the line.  
 `<alt + l>` = Move to right.  
