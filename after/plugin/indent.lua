@@ -1,15 +1,21 @@
 require("ibl").setup ({
-    --indent = {
-    --    char = "│",
-    --},
-    -- scope = {
-    --     show_start = false,
-    --     show_end = false,
-    --     highlight = { "Function", "Label" },
-    --     remove_blankline_trail = false,
-    -- },
+    scope = {
+        show_start = false,
+        show_end = false,
+        highlight = { "Function", "Label"},
+        -- include = {
+            -- node_type = {
+                -- ["*"] = {"*"},
+            -- },
+        -- },
+    },
 
-    -- exclude = { filetypes = { "txt" } },
+    whitespace = {
+        remove_blankline_trail = false,
+
+    },
+
+    exclude = { filetypes = { "txt" } },
 })
 
 
