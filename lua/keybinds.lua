@@ -18,7 +18,7 @@ map('v', '<leader>c', ':CommentToggle<CR>', opts)
 
 --Arquivos
 map('n', '<leader>ff', ':Telescope find_files<CR>', opts)
-map('n', '<leader>fg', ':Telescope live_grep<CR>', opts)
+map('n', '<leader>fg', ':Telescope live_grep_args<CR>', opts)
 map('n', '<leader>e', ':NvimTreeToggle<CR>', opts)
 map('n', '<leader>w', ':w!<CR>', opts)
 map('n', '<leader>q', ':q!<CR>', opts)
