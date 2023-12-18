@@ -10,12 +10,14 @@ if not vim.loop.fs_stat(lazypath) then
     })
 end
 
+
 vim.opt.rtp:prepend(lazypath)
 
 local ok, lazy = pcall(require, 'lazy')
 if not ok then return end
 
 lazy.setup({
+    {'codota/tabnine-nvim', build = "./dl_binaries.sh" },
     'nvim-treesitter/nvim-treesitter',
     '/HiPhish/rainbow-delimiters.nvim',
     {"catppuccin/nvim", lazy=false},

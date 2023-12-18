@@ -54,6 +54,9 @@ map('n', '<A-h>', ':bprevious<CR>', opts)
 -- Close buffer
 map('n', '<A-c>', ':bdelete!<CR>', opts)
 
+-- Tabnine
+map('n', '<leader>tg', ':TabnineToggle<CR>', opts)
+
 -- Make J and K part of jumplist
 vim.keymap.set({"n", "v"}, "j", [[v:count ? (v:count >=3 ? "m'" . v:count : "") . "j" : "j"]], { expr = true })
 vim.keymap.set({"n", "v"}, "k", [[v:count ? (v:count >= 3 ? "m'" . v:count : "") . "k" : "k"]], { expr = true })
