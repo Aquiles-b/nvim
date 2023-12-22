@@ -17,7 +17,7 @@ local ok, lazy = pcall(require, 'lazy')
 if not ok then return end
 
 lazy.setup({
-    {'codota/tabnine-nvim', build = "./dl_binaries.sh" },
+    'github/copilot.vim',
     'nvim-treesitter/nvim-treesitter',
     '/HiPhish/rainbow-delimiters.nvim',
     {"catppuccin/nvim", lazy=false},
