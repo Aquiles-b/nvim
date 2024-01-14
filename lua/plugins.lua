@@ -518,7 +518,7 @@ lazy.setup({
                     package_uninstalled = "",
                 },
                 height = 0.75,
-                border = diamondBorder,
+                border = 'single',
             },
         },
     },
