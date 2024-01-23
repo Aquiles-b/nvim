@@ -432,7 +432,7 @@ lazy.setup({
     {
         "VonHeikemen/lsp-zero.nvim",
         branch = 'dev-v3',
-        lazy = true,
+        lazy = false,
         config = function()
             --- {{{ Configs
             local lsp = require('lsp-zero').preset({})
