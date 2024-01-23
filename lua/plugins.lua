@@ -436,6 +436,7 @@ lazy.setup({
         config = function()
             --- {{{ Configs
             local lsp = require('lsp-zero').preset({})
+            lsp.extend_lspconfig()
             local cmp = require('cmp')
             local lspkind = require('lspkind')
 
@@ -466,13 +467,13 @@ lazy.setup({
                     }),
                 },
 
-                sources = {
+                sources = cmp.config.sources({
                     {name = "nvim_lsp", keyword_length = 2},
                     {name = "luasnip", keyword_length = 2},
                     {name = "path", keyword_length = 2},
                     {name = "buffer", keyword_length = 3},
                     {name = "nvim_lua", keyword_length = 2},
-                },
+                }),
                 formatting = {
                     fields = {"menu", "abbr", "kind"},
                     format = lspkind.cmp_format({
@@ -495,8 +496,6 @@ lazy.setup({
             })
 
             lsp.on_attach(function(client, bufnr)
-              -- see :help lsp-zero-keybindings
-              -- to learn the available actions
               lsp.default_keymaps({buffer = bufnr})
             end)
 
