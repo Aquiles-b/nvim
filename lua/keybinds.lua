@@ -6,6 +6,10 @@ local opts = {noremap = true, silent = true}
 map('n', '₢', "mmgg=G'mzz", opts)
 map('n', '©', "mmgg=G'mzz", opts)
 
+-- copy to clipboard
+map('v', '<C-c>', '"+y', opts)
+map('n', '<C-c>', '"+y', opts)
+
 --replace
 vim.keymap.set("n", "<leader>acw", [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
 
