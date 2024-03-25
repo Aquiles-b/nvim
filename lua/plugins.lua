@@ -306,6 +306,7 @@ lazy.setup({
                     enable = true,
                     update_cwd = true
                 },
+                view = { adaptive_size = true },
                 filters = {
                     custom = { '^.git$', '^node_modules$' }
                 },
