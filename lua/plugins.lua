@@ -335,205 +335,204 @@ lazy.setup({
     --}}}
     -- {{{ symbols-outline
     {
-        'simrat39/symbols-outline.nvim',
-        lazy = true,
+        "hedyhli/outline.nvim",
         config = function()
-            require("symbols-outline").setup()
-        end,
+            require("outline").setup {}
+        end,    
     },
-    -- }}}
-    
-    -- Auto actions --
-    -- {{{ nvim-comment
-    {
-        "terrortylor/nvim-comment",
-        config = function()
-            require('nvim_comment').setup({
-                comment_empty = false,
-            })
-        end,
-    },
-    -- }}}
-    -- {{{ autopairs
-    { 
-        "windwp/nvim-autopairs",
-        config = function()
-            require("nvim-autopairs").setup()
-        end,
-    },
-    -- }}}
-    
-    -- Autocompletion --
-    -- {{{ copilot
-    {
-        'github/copilot.vim',
-    },
-    -- }}}
-    -- {{{ Nvim_CMP
-    {
-        "hrsh7th/nvim-cmp",
-        dependencies = {
-            { "saadparwaiz1/cmp_luasnip" },
-            { 'hrsh7th/cmp-nvim-lsp' },
-            { 'hrsh7th/cmp-buffer' },
-            { 'hrsh7th/cmp-path' },
-            { 'hrsh7th/cmp-cmdline' },
-            { 'rafamadriz/friendly-snippets' },
-            -- {{{ LuaSnip
-            {
-                "L3MON4D3/LuaSnip",
-                dependencies = { "rafamadriz/friendly-snippets" },
-                config = function()
-                    local ls = require("luasnip")
-                    local s = ls.snippet
-                    local sn = ls.snippet_node
-                    local isn = ls.indent_snippet_node
-                    local t = ls.text_node
-                    local i = ls.insert_node
-                    local f = ls.function_node
-                    local c = ls.choice_node
-                    local d = ls.dynamic_node
-                    local r = ls.restore_node
-                    local events = require("luasnip.util.events")
-                    local ai = require("luasnip.nodes.absolute_indexer")
-                    local extras = require("luasnip.extras")
-                    local l = extras.lambda
-                    local rep = extras.rep
-                    local p = extras.partial
-                    local m = extras.match
-                    local n = extras.nonempty
-                    local dl = extras.dynamic_lambda
-                    local fmt = require("luasnip.extras.fmt").fmt
-                    local fmta = require("luasnip.extras.fmt").fmta
-                    local conds = require("luasnip.extras.expand_conditions")
-                    local postfix = require("luasnip.extras.postfix").postfix
-                    local types = require("luasnip.util.types")
-                    local parse = require("luasnip.util.parser").parse_snippet
-                    local ms = ls.multi_snippet
-                    local k = require("luasnip.nodes.key_indexer").new_key
+        -- }}}
 
-                    ls.config.setup({ enable_autosnippets = true })
-                    require("luasnip.loaders.from_lua").lazy_load { paths = "~/.config/nvim/after/snippets/" }
-                    require("luasnip.loaders.from_vscode").lazy_load()
-                    vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
-                    vim.keymap.set({"i", "s"}, "<C-D>", function() ls.jump(-1) end, {silent = true})
-                end,
-            },
-            -- }}}
+        -- Auto actions --
+        -- {{{ nvim-comment
+        {
+            "terrortylor/nvim-comment",
+            config = function()
+                require('nvim_comment').setup({
+                    comment_empty = false,
+                })
+            end,
         },
-    },
-    -- }}}
-    -- {{{ lspkind
-    {
-    "onsails/lspkind.nvim",
-    },
-    -- }}}
-    -- {{{ Lsp_Zero
-    {
-        "VonHeikemen/lsp-zero.nvim",
-        branch = 'dev-v3',
-        lazy = false,
-        config = function()
-            --- {{{ Configs
-            local lsp = require('lsp-zero').preset({})
-            lsp.extend_lspconfig()
-            local cmp = require('cmp')
-            local lspkind = require('lspkind')
+        -- }}}
+        -- {{{ autopairs
+        { 
+            "windwp/nvim-autopairs",
+            config = function()
+                require("nvim-autopairs").setup()
+            end,
+        },
+        -- }}}
 
-            lsp.extend_cmp()
+        -- Autocompletion --
+        -- {{{ copilot
+        {
+            'github/copilot.vim',
+        },
+        -- }}}
+        -- {{{ Nvim_CMP
+        {
+            "hrsh7th/nvim-cmp",
+            dependencies = {
+                { "saadparwaiz1/cmp_luasnip" },
+                { 'hrsh7th/cmp-nvim-lsp' },
+                { 'hrsh7th/cmp-buffer' },
+                { 'hrsh7th/cmp-path' },
+                { 'hrsh7th/cmp-cmdline' },
+                { 'rafamadriz/friendly-snippets' },
+                -- {{{ LuaSnip
+                {
+                    "L3MON4D3/LuaSnip",
+                    dependencies = { "rafamadriz/friendly-snippets" },
+                    config = function()
+                        local ls = require("luasnip")
+                        local s = ls.snippet
+                        local sn = ls.snippet_node
+                        local isn = ls.indent_snippet_node
+                        local t = ls.text_node
+                        local i = ls.insert_node
+                        local f = ls.function_node
+                        local c = ls.choice_node
+                        local d = ls.dynamic_node
+                        local r = ls.restore_node
+                        local events = require("luasnip.util.events")
+                        local ai = require("luasnip.nodes.absolute_indexer")
+                        local extras = require("luasnip.extras")
+                        local l = extras.lambda
+                        local rep = extras.rep
+                        local p = extras.partial
+                        local m = extras.match
+                        local n = extras.nonempty
+                        local dl = extras.dynamic_lambda
+                        local fmt = require("luasnip.extras.fmt").fmt
+                        local fmta = require("luasnip.extras.fmt").fmta
+                        local conds = require("luasnip.extras.expand_conditions")
+                        local postfix = require("luasnip.extras.postfix").postfix
+                        local types = require("luasnip.util.types")
+                        local parse = require("luasnip.util.parser").parse_snippet
+                        local ms = ls.multi_snippet
+                        local k = require("luasnip.nodes.key_indexer").new_key
 
-            require('mason').setup({})
-            require('mason-lspconfig').setup({
-                handlers = {lsp.default_setup},
-            })
-
-            lsp.set_sign_icons({
-                error = '│',
-                warn  = '│',
-                hint  = '│',
-                info  = '│'
-            })
-
-            lsp.setup()
-            cmp.setup({
-                mapping = {
-                    ['<A-l>'] = cmp.mapping.confirm({select = true}),
-                    ['<Tab>'] = cmp.mapping.select_next_item(),
-                    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+                        ls.config.setup({ enable_autosnippets = true })
+                        require("luasnip.loaders.from_lua").lazy_load { paths = "~/.config/nvim/after/snippets/" }
+                        require("luasnip.loaders.from_vscode").lazy_load()
+                        vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
+                        vim.keymap.set({"i", "s"}, "<C-D>", function() ls.jump(-1) end, {silent = true})
+                    end,
                 },
-                window = {
-                    completion = cmp.config.window.bordered({
-                        border = "single",
+                -- }}}
+            },
+        },
+        -- }}}
+        -- {{{ lspkind
+        {
+            "onsails/lspkind.nvim",
+        },
+        -- }}}
+        -- {{{ Lsp_Zero
+        {
+            "VonHeikemen/lsp-zero.nvim",
+            branch = 'dev-v3',
+            lazy = false,
+            config = function()
+                --- {{{ Configs
+                local lsp = require('lsp-zero').preset({})
+                lsp.extend_lspconfig()
+                local cmp = require('cmp')
+                local lspkind = require('lspkind')
+
+                lsp.extend_cmp()
+
+                require('mason').setup({})
+                require('mason-lspconfig').setup({
+                    handlers = {lsp.default_setup},
+                })
+
+                lsp.set_sign_icons({
+                    error = '│',
+                    warn  = '│',
+                    hint  = '│',
+                    info  = '│'
+                })
+
+                lsp.setup()
+                cmp.setup({
+                    mapping = {
+                        ['<A-l>'] = cmp.mapping.confirm({select = true}),
+                        ['<Tab>'] = cmp.mapping.select_next_item(),
+                        ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+                    },
+                    window = {
+                        completion = cmp.config.window.bordered({
+                            border = "single",
+                        }),
+                    },
+
+                    sources = cmp.config.sources({
+                        {name = "nvim_lsp", keyword_length = 2},
+                        {name = "luasnip", keyword_length = 2},
+                        {name = "path", keyword_length = 2},
+                        {name = "buffer", keyword_length = 3},
+                        {name = "nvim_lua", keyword_length = 2},
                     }),
-                },
+                    formatting = {
+                        fields = {"menu", "abbr", "kind"},
+                        format = lspkind.cmp_format({
+                            maxwidth = 20,
+                            ellipsis_char = '...',
 
-                sources = cmp.config.sources({
-                    {name = "nvim_lsp", keyword_length = 2},
-                    {name = "luasnip", keyword_length = 2},
-                    {name = "path", keyword_length = 2},
-                    {name = "buffer", keyword_length = 3},
-                    {name = "nvim_lua", keyword_length = 2},
-                }),
-                formatting = {
-                    fields = {"menu", "abbr", "kind"},
-                    format = lspkind.cmp_format({
-                        maxwidth = 20,
-                        ellipsis_char = '...',
+                            before = function (entry, vim_item)
+                                local final = "()"
+                                vim_item.abbr = vim_item.abbr:match("[^(]+")
+                                vim_item.abbr = vim_item.abbr:gsub("%s+","")
 
-                        before = function (entry, vim_item)
-                            local final = "()"
-                            vim_item.abbr = vim_item.abbr:match("[^(]+")
-                            vim_item.abbr = vim_item.abbr:gsub("%s+","")
-
-                            if vim_item.kind == "Function" or  vim_item.kind == "Method" then
-                            vim_item.abbr = vim_item.abbr:gsub("%s+","") .. final
+                                if vim_item.kind == "Function" or  vim_item.kind == "Method" then
+                                    vim_item.abbr = vim_item.abbr:gsub("%s+","") .. final
+                                end
+                                vim_item.menu = ""
+                                return vim_item
                             end
-                            vim_item.menu = ""
-                            return vim_item
-                        end
-                    }),
-                },
-            })
+                        }),
+                    },
+                })
 
-            lsp.on_attach(function(client, bufnr)
-              lsp.default_keymaps({buffer = bufnr})
-            end)
+                lsp.on_attach(function(client, bufnr)
+                    lsp.default_keymaps({buffer = bufnr})
+                end)
 
-            vim.diagnostic.config({
-                virtual_text = false,
-            })
-        --- }}}
-        end,
-    },
-    -- }}}
-    -- {{{ Mason
-    {
-        "williamboman/mason.nvim",
-        opts = {
-            ui = {
-                icons = {
-                    package_installed = "",
-                    package_pending = "",
-                    package_uninstalled = "",
+                vim.diagnostic.config({
+                    virtual_text = false,
+                })
+                --- }}}
+            end,
+        },
+        -- }}}
+        -- {{{ Mason
+        {
+            "williamboman/mason.nvim",
+            opts = {
+                ui = {
+                    icons = {
+                        package_installed = "",
+                        package_pending = "",
+                        package_uninstalled = "",
+                    },
+                    height = 0.75,
+                    border = 'single',
                 },
-                height = 0.75,
-                border = 'single',
             },
         },
-    },
-    -- }}}
-    -- {{{ Mason_LSPConfig
-    {
-        "williamboman/mason-lspconfig.nvim",
-    },
-    -- }}}
-    -- {{{ Nvim_Lspconfig
-    {
-        "neovim/nvim-lspconfig",
-        dependencies = {
-            { "hrsh7th/cmp-nvim-lsp" },
+        -- }}}
+        -- {{{ Mason_LSPConfig
+        {
+            "williamboman/mason-lspconfig.nvim",
         },
-    },
-    -- }}}
+        -- }}}
+        -- {{{ Nvim_Lspconfig
+        {
+            "neovim/nvim-lspconfig",
+            dependencies = {
+                { "hrsh7th/cmp-nvim-lsp" },
+            },
+        },
+        -- }}}
 
-})
+    })

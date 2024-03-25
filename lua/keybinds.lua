@@ -37,7 +37,7 @@ map('i', '<C-k>', '->', opts)
 map('i', '<A-j>', '<Esc>o', opts)
 map('i', '<A-;>', '<Esc><S-a>;<Esc>', opts)
 
-map('n', '<leader>fe', ':SymbolsOutline<CR>', opts)
+map('n', '<leader>fe', '<cmd>Outline<CR>', opts)
 
 --Mover seleção de código
 map('v', '<C-j>', ":m '>+1<CR>gv=gv", opts)
