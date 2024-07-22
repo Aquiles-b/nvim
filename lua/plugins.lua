@@ -257,7 +257,7 @@ lazy.setup({
     -- }}}
     -- {{{ rainbow-delimiters
     {
-        '/HiPhish/rainbow-delimiters.nvim',
+        -- '/HiPhish/rainbow-delimiters.nvim',
     },
     -- }}}
     
@@ -343,7 +343,7 @@ lazy.setup({
     },
         -- }}}
 
-        -- Auto actions --
+    -- Auto actions --
         -- {{{ nvim-comment
         {
             "terrortylor/nvim-comment",
@@ -363,7 +363,7 @@ lazy.setup({
         },
         -- }}}
 
-        -- Autocompletion --
+    -- Autocompletion --
         -- {{{ copilot
         {
             'github/copilot.vim',
@@ -536,4 +536,16 @@ lazy.setup({
         },
         -- }}}
 
-    })
+    -- Latex -- 
+        -- {{{ Vimtex
+        {
+          "lervag/vimtex",
+          lazy = false,
+          init = function()
+            vim.g.vimtex_view_method = "zathura"
+          end
+        }
+        -- }}}
+
+
+}) -- lazy setup
