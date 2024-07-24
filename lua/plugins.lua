@@ -41,6 +41,7 @@ lazy.setup({
                 auto_install = true,
                 highlight = {
                     enable = true,
+                    disable = {'latex'},
                     additional_vim_regex_highlighting = false,
                 },
             })
@@ -541,10 +542,10 @@ lazy.setup({
           "lervag/vimtex",
           lazy = false,
           init = function()
-            vim.g.vimtex_view_method = "zathura"
+            vim.g.vimtex_view_general_viewer = 'sumatraPDF'
+            vim.g.vimtex_view_general_options = '-reuse-instance @pdf'
           end
         }
         -- }}}
-
 
 }) -- lazy setup
