@@ -2,6 +2,9 @@ local map = vim.api.nvim_set_keymap
 vim.g.mapleader = ' '
 local opts = {noremap = true, silent = true}
 
+-- Toggle markdown
+map('n', '<leader>tm', ':RenderMarkdown toggle<CR>', opts)
+
 --autoindent altgr+c
 map('n', '₢', "mmgg=G'mzz", opts)
 map('n', '©', "mmgg=G'mzz", opts)
