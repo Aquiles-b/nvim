@@ -545,9 +545,8 @@ lazy.setup({
             vim.g.vimtex_view_general_viewer = 'sumatraPDF'
             vim.g.vimtex_view_general_options = '-reuse-instance @pdf'
           end
-        }
+        },
         -- }}}
-
 
     -- Markdown --
         -- {{{ render-markdown
