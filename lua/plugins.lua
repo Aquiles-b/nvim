@@ -365,9 +365,9 @@ lazy.setup({
 
     -- Autocompletion --
         -- {{{ copilot
-        {
-            'github/copilot.vim',
-        },
+        -- {
+        --     'github/copilot.vim',
+        -- },
         -- }}}
         -- {{{ Nvim_CMP
         {
@@ -545,21 +545,46 @@ lazy.setup({
             vim.g.vimtex_view_general_viewer = 'sumatraPDF'
             vim.g.vimtex_view_general_options = '-reuse-instance @pdf'
           end
-        }
+        },
         -- }}}
-
 
     -- Markdown --
         -- {{{ render-markdown
         {
-            'MeanderingProgrammer/render-markdown.nvim',
-            dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
-            -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-            -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-            ---@module 'render-markdown'
-            ---@type render.md.UserConfig
-            opts = {},
-        }
+          'MeanderingProgrammer/render-markdown.nvim',
+          dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+          -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+          -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+          ---@module 'render-markdown'
+          ---@type render.md.UserConfig
+          opts = {},
+          config = function()
+              require('render-markdown').setup({})
+          end,
+        },
         -- }}}
+
+    -- {{{ Conform
+    {
+        'stevearc/conform.nvim',
+        config = function ()
+            require("conform").setup({
+                formatters_by_ft = {
+                    lua = { "stylua" },
+                    -- Conform will run multiple formatters sequentially
+                    python = { "black", "isort" },
+                    -- Use a sub-list to run only the first available formatter
+                    javascript = { { "prettierd", "prettier" } },
+                    html = { { "prettierd", "prettier" } },
+                    css = { { "prettierd", "prettier" } },
+                    xml = { { "xmlformatter" } },
+                    c = { { "clangd", "clang-format" } },
+                },
+            })
+
+            vim.keymap.set("n", "<F3>", [[<Cmd>lua require("conform").format()<CR>]])
+        end
+    },
+    -- }}}
 
 }) -- lazy setup

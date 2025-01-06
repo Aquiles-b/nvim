@@ -2,6 +2,9 @@ local map = vim.api.nvim_set_keymap
 vim.g.mapleader = ' '
 local opts = {noremap = true, silent = true}
 
+-- replace in selected area
+vim.keymap.set({ "n", "v" }, "₢", [[:s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
+
 -- Toggle markdown
 map('n', '<leader>tm', ':RenderMarkdown toggle<CR>', opts)
 
@@ -71,20 +74,20 @@ vim.keymap.set({"n", "v"}, "k", [[v:count ? (v:count >= 3 ? "m'" . v:count : "")
 -- Copilot
 vim.g.copilot_no_tab_map = true
 vim.keymap.set('i', '<A-m>', 'copilot#Accept("<CR>")', {
-  expr = true,
-  replace_keycodes = false
+    expr = true,
+    replace_keycodes = false
 })
 vim.keymap.set('i', '<A-n>', 'copilot#Dismiss()', {
-  expr = true,
-  replace_keycodes = false
+    expr = true,
+    replace_keycodes = false
 })
 vim.cmd [[ function! SuggestOneWord()
-    let suggestion = copilot#Accept("")
-    let bar = copilot#TextQueuedForInsertion()
-    return split(bar, '[ .]\zs')[0]
+let suggestion = copilot#Accept("")
+let bar = copilot#TextQueuedForInsertion()
+return split(bar, '[ .]\zs')[0]
 endfunction ]]
 vim.keymap.set('i', '<A-M>', 'SuggestOneWord()', {
-  expr = true,
-  replace_keycodes = false
+    expr = true,
+    replace_keycodes = false
 })
 vim.cmd [[highlight CopilotSuggestion guifg=#777777 ctermfg=8]]
