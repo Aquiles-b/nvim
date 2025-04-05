@@ -3,7 +3,7 @@ vim.g.mapleader = ' '
 local opts = {noremap = true, silent = true}
 
 -- replace in selected area
-vim.keymap.set({ "n", "v" }, "₢", [[:s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
+vim.keymap.set({ "n", "v" }, "©", [[:s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
 
 -- Toggle markdown
 map('n', '<leader>tm', ':RenderMarkdown toggle<CR>', opts)

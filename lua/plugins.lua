@@ -455,6 +455,10 @@ lazy.setup({
                 })
 
                 lsp.setup()
+                require('lspconfig').dartls.setup({
+                    cmd = { "dart", "language-server", "--protocol=lsp" },
+                    root_dir = require('lspconfig.util').root_pattern("pubspec.yaml"),
+                })
                 cmp.setup({
                     mapping = {
                         ['<A-l>'] = cmp.mapping.confirm({select = true}),
