@@ -443,8 +443,28 @@ lazy.setup({
                 lsp.extend_cmp()
 
                 require('mason').setup({})
+
                 require('mason-lspconfig').setup({
-                    handlers = {lsp.default_setup},
+                    require('mason-lspconfig').setup({
+                        handlers = {
+                            function(server)
+                                if server ~= "ltex" then
+                                    lsp.default_setup(server)
+                                end
+                            end,
+                            -- Configuração específica para o ltex
+                            ["ltex"] = function()
+                                lsp.configure('ltex', {
+                                    settings = {
+                                        ltex = {
+                                            language = "pt-BR",
+                                        },
+                                    },
+                                    filetypes = { "markdown", "text", "tex", "latex" },
+                                })
+                            end,
+                        },
+                    })
                 })
 
                 lsp.set_sign_icons({
@@ -455,6 +475,7 @@ lazy.setup({
                 })
 
                 lsp.setup()
+
                 require('lspconfig').dartls.setup({
                     cmd = { "dart", "language-server", "--protocol=lsp" },
                     root_dir = require('lspconfig.util').root_pattern("pubspec.yaml"),

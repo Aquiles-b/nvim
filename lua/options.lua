@@ -2,13 +2,29 @@ local set = vim.opt
 set.syntax = 'on'
 set.expandtab = true
 set.scrolloff = 8
-set.shiftwidth = 4
 set.colorcolumn = '80'
-set.tabstop = 4
 set.smarttab = true
 set.background = 'dark'
 set.nu = true
 set.rnu = true
+
+set.shiftwidth = 4
+set.tabstop = 4
+
+local function SetIndentSize(size)
+  size = tonumber(size) or 4
+  vim.opt.shiftwidth = size
+  vim.opt.tabstop = size
+  print("Indent size set to " .. size)
+end
+
+vim.api.nvim_create_user_command(
+  "SetIndent",
+  function(opts)
+    SetIndentSize(opts.args)
+  end,
+  { nargs = 1 }
+)
 
 vim.cmd [[set noshowmode]]
 set.ignorecase = true
