@@ -11,20 +11,50 @@ set.rnu = true
 set.shiftwidth = 4
 set.tabstop = 4
 
+-- ## Indent
 local function SetIndentSize(size)
-  size = tonumber(size) or 4
-  vim.opt.shiftwidth = size
-  vim.opt.tabstop = size
-  print("Indent size set to " .. size)
+    size = tonumber(size) or 4
+    vim.opt.shiftwidth = size
+    vim.opt.tabstop = size
+    print("Indent size set to " .. size)
 end
 
 vim.api.nvim_create_user_command(
-  "SetIndent",
-  function(opts)
-    SetIndentSize(opts.args)
-  end,
-  { nargs = 1 }
+    "SetIndent",
+    function(opts)
+        SetIndentSize(opts.args)
+    end,
+    { nargs = 1 }
 )
+
+-- ## Ltex language
+local function set_ltex_language(lang)
+    local clients = vim.lsp.get_active_clients({ name = "ltex_plus" })
+    if #clients == 0 then
+        vim.notify("LTeX is not active for this buffer.", vim.log.levels.WARN)
+        return
+    end
+
+    for _, client in ipairs(clients) do
+        client.config.settings = client.config.settings or {}
+        client.config.settings.ltex = client.config.settings.ltex or {}
+        client.config.settings.ltex.language = lang
+        client.notify("workspace/didChangeConfiguration", {
+            settings = client.config.settings,
+        })
+    end
+
+    vim.notify("LTeX language set to: " .. lang, vim.log.levels.INFO)
+end
+
+vim.api.nvim_create_user_command("LtexSetLang", function(opts)
+    set_ltex_language(opts.args)
+end, {
+nargs = 1,
+complete = function()
+    return { "en-US", "pt-BR" }
+end,
+})
 
 vim.cmd [[set noshowmode]]
 set.ignorecase = true
