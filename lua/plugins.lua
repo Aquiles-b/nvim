@@ -366,7 +366,7 @@ lazy.setup({
     -- Autocompletion --
         -- {{{ copilot
         {
-            -- 'github/copilot.vim',
+            'github/copilot.vim',
         },
         -- }}}
         -- {{{ LSP + CMP + Mason
@@ -443,6 +443,10 @@ lazy.setup({
       end,
     },
     -- }}}
+    -- {{{ fugitive
+    {
+        "tpope/vim-fugitive",
+    },
 
     -- Latex -- 
         -- {{{ Vimtex

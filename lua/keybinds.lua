@@ -29,9 +29,13 @@ map('v', '<leader>c', ':CommentToggle<CR>', opts)
 --Arquivos
 map('n', '<leader>ff', ':Telescope find_files<CR>', opts)
 map('n', '<leader>fg', ':Telescope live_grep_args<CR>', opts)
-map('n', '<leader>e', ':NvimTreeToggle<CR>', opts)
 map('n', '<leader>w', ':w!<CR>', opts)
 map('n', '<leader>q', ':q!<CR>', opts)
+-- Nvtree
+map("n", "<leader>e", "<Cmd>NvimTreeToggle $PWD<CR>", opts)
+map("n", "<leader>reb", "<Cmd>NvimTreeFindFile<CR>", opts)
+map("n", "<leader>reh", "<Cmd>NvimTreeToggle ~/.<CR>", opts)
+map("n", "<leader>ren", "<Cmd>NvimTreeToggle ~/.config/nvim<CR>", opts)
 --term
 map('t', '<C-n>', '<C-\\><C-n>', opts)
 map('n', '<A-i>', ':ToggleTerm direction=float<CR>', opts)
@@ -88,3 +92,15 @@ vim.keymap.set('i', '<A-M>', 'SuggestOneWord()', {
     replace_keycodes = false
 })
 vim.cmd [[highlight CopilotSuggestion guifg=#777777 ctermfg=8]]
+
+-- Toggle copilot enabled/disabled
+function ToggleCopilot()
+    if vim.g.copilot_enabled == 1 then
+        vim.g.copilot_enabled = 0
+        vim.cmd('Copilot disable')
+    else
+        vim.g.copilot_enabled = 1
+        vim.cmd('Copilot enable')
+    end
+end
+map('n', '<leader>tc', ':lua ToggleCopilot()<CR>', opts)
