@@ -387,6 +387,14 @@ lazy.setup({
         {"neovim/nvim-lspconfig"},
         -- }}}
 
+    -- Formatting --
+        -- {{{ conform
+        {
+          'stevearc/conform.nvim',
+          opts = {},
+        },
+        -- }}}
+
     -- Git ---
     -- {{{ gitsigns
     {

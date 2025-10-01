@@ -1,3 +1,11 @@
+-- Adjustments -------------------------
+
+vim.filetype.add {
+    extension = {
+        cl = "c",
+    },
+}
+
 -- LuaSnip Config --
 local ls = require("luasnip")
 
@@ -103,6 +111,11 @@ end
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', 'gl', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+vim.keymap.set('n', '<F4>', vim.lsp.buf.code_action, opts)
+vim.keymap.set('v', '<F4>', vim.lsp.buf.code_action, opts)
+vim.keymap.set("n", "þ", function()
+    require("conform").format()
+end, { noremap = true, silent = true })
 
 -----------------------------------------
 
@@ -111,16 +124,15 @@ end
 
 -- Setup LSP with Mason-lspconfig --
 local mason_lspconfig = require("mason-lspconfig")
-local lspconfig = require("lspconfig")
-local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
--- Catch all installed servers from Mason and configure them
+local cmp_nvim_lsp = require("cmp_nvim_lsp") 
+-- Catch all installed servers from Mason and configure them 
 local installed_servers = mason_lspconfig.get_installed_servers()
-local capabilities = cmp_nvim_lsp.default_capabilities()
+local capabilities = cmp_nvim_lsp.default_capabilities() 
 
 for _, server in ipairs(installed_servers) do
-    lspconfig[server].setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
+    vim.lsp.config(server, {
+      on_attach = on_attach,
+      capabilities = capabilities,
     })
+    vim.lsp.enable(server)
 end
