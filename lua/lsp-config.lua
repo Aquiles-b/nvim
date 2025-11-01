@@ -99,13 +99,22 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 end
 
 -- Status column --
-local signs = { Error = "DiagnosticUnified",
-                Warn = "DiagnosticUnified",
-                Info = "DiagnosticUnified",
-                Hint = "DiagnosticUnified" }
-for type, hl in pairs(signs) do
-  vim.fn.sign_define("DiagnosticSign" .. type, { text = "│", texthl = hl, numhl = "" })
-end
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "│",
+      [vim.diagnostic.severity.WARN]  = "│",
+      [vim.diagnostic.severity.INFO]  = "│",
+      [vim.diagnostic.severity.HINT]  = "│",
+    },
+    numhl = {
+      [vim.diagnostic.severity.ERROR] = "DiagnosticUnified",
+      [vim.diagnostic.severity.WARN]  = "DiagnosticUnified",
+      [vim.diagnostic.severity.INFO]  = "DiagnosticUnified",
+      [vim.diagnostic.severity.HINT]  = "DiagnosticUnified",
+    },
+  },
+})
 
 -- Show diagnostic --
 local opts = { noremap = true, silent = true }
@@ -113,11 +122,19 @@ vim.keymap.set('n', 'gl', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
 vim.keymap.set('n', '<F4>', vim.lsp.buf.code_action, opts)
 vim.keymap.set('v', '<F4>', vim.lsp.buf.code_action, opts)
-vim.keymap.set("n", "þ", function()
-    require("conform").format()
-end, { noremap = true, silent = true })
 
------------------------------------------
+require("conform").setup({
+  formatters_by_ft = {
+    cpp = { "clang-format" },
+    c   = { "clang-format" },
+    h   = { "clang-format" },
+    hpp = { "clang-format" },
+  },
+})
+
+vim.keymap.set({ "n", "v" }, "þ", function()
+  require("conform").format({ async = true })
+end, { noremap = true, silent = true })-----------------------------------------
 
 local on_attach = function(client, bufnr)
 end

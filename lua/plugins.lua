@@ -303,8 +303,8 @@ lazy.setup({
                     open_file = { quit_on_open = true }
                 },
                 update_focused_file = {
-                    enable = true,
-                    update_cwd = true
+                    enable = false,
+                    update_cwd = false
                 },
                 view = { adaptive_size = true },
                 filters = {

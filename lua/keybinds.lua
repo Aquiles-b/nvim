@@ -95,6 +95,7 @@ vim.keymap.set('i', '<A-M>', 'SuggestOneWord()', {
 vim.cmd [[highlight CopilotSuggestion guifg=#777777 ctermfg=8]]
 
 -- Toggle copilot enabled/disabled
+vim.g.copilot_enabled = 1
 function ToggleCopilot()
     if vim.g.copilot_enabled == 1 then
         vim.g.copilot_enabled = 0
