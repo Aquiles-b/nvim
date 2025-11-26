@@ -455,6 +455,13 @@ lazy.setup({
     {
         "tpope/vim-fugitive",
     },
+    -- }}}
+    -- {{{ Diff.nvim
+        {
+            "esmuellert/vscode-diff.nvim",
+            dependencies = { "MunifTanjim/nui.nvim" },
+        },
+    -- }}}
 
     -- Latex -- 
         -- {{{ Vimtex
@@ -508,3 +515,4 @@ lazy.setup({
     -- }}}
 
 }) -- lazy setup
+
