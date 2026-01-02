@@ -27,10 +27,8 @@ map('n', '<leader>c', ':CommentToggle<CR>', opts)
 map('v', '<leader>c', ':CommentToggle<CR>', opts)
 
 --Arquivos
-map('n', '<leader>ff', ':Telescope find_files<CR>', opts)
-map('n', '<leader>fg', ':Telescope live_grep_args<CR>', opts)
 map('n', '<leader>w', ':w!<CR>', opts)
-map('n', '<leader>q', ':q!<CR>', opts)
+map('n', '<leader>qt', ':q!<CR>', opts)
 -- Nvtree
 map("n", "<leader>e", "<Cmd>NvimTreeToggle<CR>", opts)
 map("n", "<leader>ree", "<Cmd>NvimTreeToggle $PWD<CR>", opts)
@@ -106,3 +104,46 @@ function ToggleCopilot()
     end
 end
 map('n', '<leader>tc', ':lua ToggleCopilot()<CR>', opts)
+
+
+-- Telescope ------------------------------------------------------------------
+local api = require("nvim-tree.api")
+local telescope = require("telescope.builtin")
+
+local function get_marked_paths()
+    local marks = api.marks.list() or {}
+    local paths = {}
+    for _, node in pairs(marks) do
+        table.insert(paths, node.absolute_path)
+    end
+    
+    -- Se não houver marks, usa o diretório raiz do nvim-tree
+    if #paths == 0 then
+        local tree = api.tree.get_nodes()
+        if tree and tree.absolute_path then
+            table.insert(paths, tree.absolute_path)
+        else
+            -- Fallback: usa o diretório atual do Neovim
+            table.insert(paths, vim.fn.getcwd())
+        end
+    end
+    
+    return paths
+end
+
+-- Live grep nos diretórios marcados ou no diretório raiz do nvim-tree
+vim.keymap.set("n", "<leader>fg", function()
+    local paths = get_marked_paths()
+    telescope.live_grep({
+        search_dirs = paths,
+    })
+end, opts)
+
+vim.keymap.set("n", "<leader>ff", function()
+    local paths = get_marked_paths()
+    telescope.find_files({
+        search_dirs = paths,
+        hidden = true,
+    })
+end, opts)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------

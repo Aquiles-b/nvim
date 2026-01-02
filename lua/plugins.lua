@@ -29,7 +29,7 @@ lazy.setup({
         end,
     },
     -- }}}
-    
+
     -- HUD --
     -- {{{ Treesitter
     {
@@ -205,181 +205,239 @@ lazy.setup({
                         directory =  '',     -- Text to show when the buffer is a directory
                     },
                 },
-                },
-                lualine_b = {},
-                lualine_c = {},
-                lualine_x = {},
-                lualine_y = {},
-                lualine_z = {'tabs'}
             },
-            winbar = {},
-            inactive_winbar = {},
-            extensions = {},
+            lualine_b = {},
+            lualine_c = {},
+            lualine_x = {},
+            lualine_y = {},
+            lualine_z = {'tabs'}
+        },
+        winbar = {},
+        inactive_winbar = {},
+        extensions = {},
 
+    },
+},
+-- }}}
+-- {{{ Nvim_Devicons
+{
+    "nvim-tree/nvim-web-devicons",
+    lazy = true,
+    opts = {
+        override = {
+            zsh = {
+                icon = "",
+                name = "Zsh",
+            },
+        },
+        color_icons = true,
+        default = true,
+    },
+},
+-- }}}
+-- {{{ indent-blankline
+{
+    "lukas-reineke/indent-blankline.nvim",
+    main='ibl',
+    config = function()
+        require("ibl").setup ({
+            scope = {
+                show_start = false,
+                show_end = false,
+                highlight = { "Function", "Label"},
+            },
+            whitespace = {
+                remove_blankline_trail = false,
+
+            },
+            exclude = { filetypes = { "txt" } },
+        })
+    end
+},
+-- }}}
+-- {{{ rainbow-delimiters
+{
+    -- '/HiPhish/rainbow-delimiters.nvim',
+},
+-- }}}
+
+-- Navigation --
+-- {{{ Telescope
+{
+    'nvim-telescope/telescope.nvim',
+    event = "VeryLazy",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        { "nvim-telescope/telescope-live-grep-args.nvim", version = "^1.0.0" },
+    },
+    config = function()
+        local telescope = require("telescope")
+        local telescopeConfig = require("telescope.config")
+        
+        -- Clona a configuração padrão do ripgrep
+        local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
+        
+        -- Não respeita .gitignore
+        table.insert(vimgrep_arguments, "--no-ignore")
+        
+        -- Busca em arquivos ocultos/dotfiles
+        table.insert(vimgrep_arguments, "--hidden")
+        
+        -- Exclui diretórios específicos
+        table.insert(vimgrep_arguments, "--glob")
+        table.insert(vimgrep_arguments, "!**/.git/*")
+        table.insert(vimgrep_arguments, "--glob")
+        table.insert(vimgrep_arguments, "!**/venv/*")
+        table.insert(vimgrep_arguments, "--glob")
+        table.insert(vimgrep_arguments, "!**/.venv/*")
+        
+        -- Segue links simbólicos
+        table.insert(vimgrep_arguments, "-L")
+        
+        -- Setup do Telescope
+        telescope.setup({
+            defaults = {
+                vimgrep_arguments = vimgrep_arguments,
+                file_ignore_patterns = {},  -- Remove padrões extras de ignorar
+
+               path_display = function(opts, path)
+                    -- Remove o diretório de busca do path (mostra relativo)
+                    local cwd = vim.fn.getcwd()
+                    local relative_path = path:gsub("^" .. cwd .. "/", "")
+                    
+                    -- Divide o path em partes
+                    local parts = vim.split(relative_path, "/")
+                    
+                    -- Se o path for curto, mostra completo
+                    if #parts <= 3 then
+                        return relative_path
+                    end
+                    
+                    -- Mostra: primeiro_dir/.../ultimo_dir/arquivo
+                    local first = parts[1]
+                    local last_dir = parts[#parts - 1]
+                    local file = parts[#parts]
+                    
+                    return first .. "/.../" .. last_dir .. "/" .. file
+                end,
+            },
+            pickers = {
+                find_files = {
+                    find_command = { "rg", "--files", "--no-ignore", "--hidden", "--glob", "!**/.git/*", "--glob", "!**/venv/*", "--glob", "!**/.venv/*", "-L" },
+                },
+            },
+        })
+        
+        -- Carrega a extensão live_grep_args
+        telescope.load_extension("live_grep_args")
+    end
+},
+-- }}}
+-- {{{ toggleterm
+{
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    opts = {
+        direction = "float",
+        float_opts = {
+            border = "single",
         },
     },
-    -- }}}
-    -- {{{ Nvim_Devicons
-    {
+},
+-- }}}
+-- {{{ Nvim_Tree
+{
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    dependencies = {
         "nvim-tree/nvim-web-devicons",
-        lazy = true,
-        opts = {
-            override = {
-                zsh = {
-                    icon = "",
-                    name = "Zsh",
-                },
+    },
+    config = function()
+        require("nvim-tree").setup({
+            sort_by = "case_sensitive",
+            actions = {
+                open_file = { quit_on_open = true }
             },
-            color_icons = true,
-            default = true,
-        },
-    },
-    -- }}}
-    -- {{{ indent-blankline
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        main='ibl',
-        config = function()
-            require("ibl").setup ({
-                scope = {
-                    show_start = false,
-                    show_end = false,
-                    highlight = { "Function", "Label"},
-                },
-                whitespace = {
-                    remove_blankline_trail = false,
-
-                },
-                exclude = { filetypes = { "txt" } },
-            })
-        end
-    },
-    -- }}}
-    -- {{{ rainbow-delimiters
-    {
-        -- '/HiPhish/rainbow-delimiters.nvim',
-    },
-    -- }}}
-    
-    -- Navigation --
-    -- {{{ Telescope
-    {
-        'nvim-telescope/telescope.nvim',
-        event = "VeryLazy",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            {"nvim-telescope/telescope-live-grep-args.nvim" , version = "^1.0.0"},
-        },
-        config = function()
-            require("telescope").load_extension("live_grep_args")
-            require("telescope").setup()
-        end
-    },
-    -- }}}
-    -- {{{ toggleterm
-    {
-        "akinsho/toggleterm.nvim",
-        version = "*",
-        opts = {
-            direction = "float",
-            float_opts = {
-                border = "single",
+            update_focused_file = {
+                enable = false,
+                update_cwd = false
             },
-        },
-    },
-    -- }}}
-    -- {{{ Nvim_Tree
-    {
-        "nvim-tree/nvim-tree.lua",
-        version = "*",
-        lazy = false,
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-        },
-        config = function()
-            require("nvim-tree").setup({
-                sort_by = "case_sensitive",
-                actions = {
-                    open_file = { quit_on_open = true }
-                },
-                update_focused_file = {
-                    enable = false,
-                    update_cwd = false
-                },
-                view = { adaptive_size = true },
-                filters = {
-                    custom = { '^.git$', '^node_modules$' }
-                },
-                git = {
-                    enable = false
-                },
-                log = {
-                    enable = true,
-                    types = {
-                        diagnostics = true
-                    }
-                },
-                diagnostics = {
-                    enable = true,
-                    show_on_dirs = false,
-                    debounce_delay = 50,
-                    icons = {
-                        hint = '│',
-                        info = '│',
-                        warning = '│',
-                        error = '│'
-                    }
+            view = { adaptive_size = true },
+            filters = {
+                custom = { '^.git$', '^node_modules$' }
+            },
+            git = {
+                enable = false
+            },
+            log = {
+                enable = true,
+                types = {
+                    diagnostics = true
                 }
-            })
-        end,
-    },
-    --}}}
-    -- {{{ symbols-outline
-    {
-        "hedyhli/outline.nvim",
-        config = function()
-            require("outline").setup {}
-        end,    
-    },
-        -- }}}
-
-    -- Auto actions --
-        -- {{{ nvim-comment
-        {
-            "terrortylor/nvim-comment",
-            config = function()
-                require('nvim_comment').setup({
-                    comment_empty = false,
-                })
-            end,
-        },
-        -- }}}
-        -- {{{ autopairs
-        { 
-            "windwp/nvim-autopairs",
-            config = function()
-                require("nvim-autopairs").setup()
-            end,
-        },
-        -- }}}
-
-    -- Autocompletion --
-        -- {{{ copilot
-        {
-            'github/copilot.vim',
-        },
-        -- }}}
-        -- {{{ LSP + CMP + Mason
-        {"hrsh7th/nvim-cmp",
-            dependencies = {
-                { "saadparwaiz1/cmp_luasnip" },
-                { 'hrsh7th/cmp-nvim-lsp' },
-                { 'hrsh7th/cmp-buffer' },
-                { 'hrsh7th/cmp-path' },
-                { 'hrsh7th/cmp-cmdline' },
-                { 'rafamadriz/friendly-snippets' },
-                {"L3MON4D3/LuaSnip", dependencies = { "rafamadriz/friendly-snippets" }},
             },
+            diagnostics = {
+                enable = true,
+                show_on_dirs = false,
+                debounce_delay = 50,
+                icons = {
+                    hint = '│',
+                    info = '│',
+                    warning = '│',
+                    error = '│'
+                }
+            }
+        })
+
+    end,
+},
+--}}}
+-- {{{ symbols-outline
+{
+    "hedyhli/outline.nvim",
+    config = function()
+        require("outline").setup {}
+    end,    
+},
+-- }}}
+
+-- Auto actions --
+-- {{{ nvim-comment
+{
+    "terrortylor/nvim-comment",
+    config = function()
+        require('nvim_comment').setup({
+            comment_empty = false,
+        })
+    end,
+},
+-- }}}
+-- {{{ autopairs
+{ 
+    "windwp/nvim-autopairs",
+    config = function()
+        require("nvim-autopairs").setup()
+    end,
+},
+-- }}}
+
+-- Autocompletion --
+-- {{{ copilot
+{
+    'github/copilot.vim',
+},
+-- }}}
+-- {{{ LSP + CMP + Mason
+{"hrsh7th/nvim-cmp",
+dependencies = {
+    { "saadparwaiz1/cmp_luasnip" },
+    { 'hrsh7th/cmp-nvim-lsp' },
+    { 'hrsh7th/cmp-buffer' },
+    { 'hrsh7th/cmp-path' },
+    { 'hrsh7th/cmp-cmdline' },
+    { 'rafamadriz/friendly-snippets' },
+    {"L3MON4D3/LuaSnip", dependencies = { "rafamadriz/friendly-snippets" }},
+},
         },
         {"onsails/lspkind.nvim"},
         {"williamboman/mason.nvim"},
@@ -387,83 +445,83 @@ lazy.setup({
         {"neovim/nvim-lspconfig"},
         -- }}}
 
-    -- Formatting --
+        -- Formatting --
         -- {{{ conform
         {
-          'stevearc/conform.nvim',
-          opts = {},
+            'stevearc/conform.nvim',
+            opts = {},
         },
         -- }}}
 
-    -- Git ---
-    -- {{{ gitsigns
-    {
-      'lewis6991/gitsigns.nvim',
-      config = function()
-        require('gitsigns').setup {
-          signs = {
-            add          = { text = '┃' },
-            change       = { text = '┃' },
-            delete       = { text = '_' },
-            topdelete    = { text = '‾' },
-            changedelete = { text = '~' },
-            untracked    = { text = '┆' },
-          },
-          signs_staged = {
-            add          = { text = '┃' },
-            change       = { text = '┃' },
-            delete       = { text = '_' },
-            topdelete    = { text = '‾' },
-            changedelete = { text = '~' },
-            untracked    = { text = '┆' },
-          },
-          signs_staged_enable = true,
-          signcolumn = true,
-          numhl      = false,
-          linehl     = false,
-          word_diff  = false,
-          watch_gitdir = {
-            follow_files = true
-          },
-          auto_attach = true,
-          attach_to_untracked = false,
-          current_line_blame = false,
-          current_line_blame_opts = {
-            virt_text = true,
-            virt_text_pos = 'eol',
-            delay = 1000,
-            ignore_whitespace = false,
-            virt_text_priority = 100,
-            use_focus = true,
-          },
-          current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
-          sign_priority = 6,
-          update_debounce = 100,
-          status_formatter = nil,
-          max_file_length = 40000,
-          preview_config = {
-            style = 'minimal',
-            relative = 'cursor',
-            row = 0,
-            col = 1
-          },
-        }
-      end,
-    },
-    -- }}}
-    -- {{{ fugitive
-    {
-        "tpope/vim-fugitive",
-    },
-    -- }}}
-    -- {{{ Diff.nvim
+        -- Git ---
+        -- {{{ gitsigns
+        {
+            'lewis6991/gitsigns.nvim',
+            config = function()
+                require('gitsigns').setup {
+                    signs = {
+                        add          = { text = '┃' },
+                        change       = { text = '┃' },
+                        delete       = { text = '_' },
+                        topdelete    = { text = '‾' },
+                        changedelete = { text = '~' },
+                        untracked    = { text = '┆' },
+                    },
+                    signs_staged = {
+                        add          = { text = '┃' },
+                        change       = { text = '┃' },
+                        delete       = { text = '_' },
+                        topdelete    = { text = '‾' },
+                        changedelete = { text = '~' },
+                        untracked    = { text = '┆' },
+                    },
+                    signs_staged_enable = true,
+                    signcolumn = true,
+                    numhl      = false,
+                    linehl     = false,
+                    word_diff  = false,
+                    watch_gitdir = {
+                        follow_files = true
+                    },
+                    auto_attach = true,
+                    attach_to_untracked = false,
+                    current_line_blame = false,
+                    current_line_blame_opts = {
+                        virt_text = true,
+                        virt_text_pos = 'eol',
+                        delay = 1000,
+                        ignore_whitespace = false,
+                        virt_text_priority = 100,
+                        use_focus = true,
+                    },
+                    current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
+                    sign_priority = 6,
+                    update_debounce = 100,
+                    status_formatter = nil,
+                    max_file_length = 40000,
+                    preview_config = {
+                        style = 'minimal',
+                        relative = 'cursor',
+                        row = 0,
+                        col = 1
+                    },
+                }
+            end,
+        },
+        -- }}}
+        -- {{{ fugitive
+        {
+            "tpope/vim-fugitive",
+        },
+        -- }}}
+        -- {{{ Diff.nvim
         {
             "esmuellert/vscode-diff.nvim",
             dependencies = { "MunifTanjim/nui.nvim" },
         },
-    -- }}}
+        -- }}}
 
-    -- Latex -- 
+        -- Latex -- 
         -- {{{ Vimtex
         {
             "lervag/vimtex",
@@ -475,44 +533,44 @@ lazy.setup({
         },
         -- }}}
 
-    -- Markdown --
+        -- Markdown --
         -- {{{ render-markdown
         {
-          'MeanderingProgrammer/render-markdown.nvim',
-          dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
-          -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-          -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-          ---@module 'render-markdown'
-          ---@type render.md.UserConfig
-          opts = {},
-          config = function()
-              require('render-markdown').setup({})
-          end,
+            'MeanderingProgrammer/render-markdown.nvim',
+            dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+            -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+            -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+            ---@module 'render-markdown'
+            ---@type render.md.UserConfig
+            opts = {},
+            config = function()
+                require('render-markdown').setup({})
+            end,
         },
         -- }}}
 
-    -- {{{ Conform
-    {
-        'stevearc/conform.nvim',
-        config = function ()
-            require("conform").setup({
-                formatters_by_ft = {
-                    lua = { "stylua" },
-                    -- Conform will run multiple formatters sequentially
-                    python = { "black", "isort" },
-                    -- Use a sub-list to run only the first available formatter
-                    javascript = { { "prettierd", "prettier" } },
-                    html = { { "prettierd", "prettier" } },
-                    css = { { "prettierd", "prettier" } },
-                    xml = { { "xmlformatter" } },
-                    c = { { "clangd", "clang-format" } },
-                },
-            })
+        -- {{{ Conform
+        {
+            'stevearc/conform.nvim',
+            config = function ()
+                require("conform").setup({
+                    formatters_by_ft = {
+                        lua = { "stylua" },
+                        -- Conform will run multiple formatters sequentially
+                        python = { "black", "isort" },
+                        -- Use a sub-list to run only the first available formatter
+                        javascript = { { "prettierd", "prettier" } },
+                        html = { { "prettierd", "prettier" } },
+                        css = { { "prettierd", "prettier" } },
+                        xml = { { "xmlformatter" } },
+                        c = { { "clangd", "clang-format" } },
+                    },
+                })
 
-            vim.keymap.set("n", "<F3>", [[<Cmd>lua require("conform").format()<CR>]])
-        end
-    },
-    -- }}}
+                vim.keymap.set("n", "<F3>", [[<Cmd>lua require("conform").format()<CR>]])
+            end
+        },
+        -- }}}
 
-}) -- lazy setup
+    }) -- lazy setup
 
