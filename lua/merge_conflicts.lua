@@ -13,6 +13,7 @@ local M = {}
 
 M.active   = false
 M.conflicts = {}
+M.resolved  = {}
 M.index     = 0
 M.list_buf  = nil
 M.list_win  = nil
@@ -33,12 +34,7 @@ local function list_is_open()
 end
 
 local function is_pending(file)
-    for _, f in ipairs(M.conflicts) do
-        if f == file then
-            return true
-        end
-    end
-    return false
+    return not M.resolved[file]
 end
 
 local function shorten_path(path, max_len)
@@ -90,6 +86,63 @@ local function close_all_file_buffers()
     end
 end
 
+local function get_writable_buffer()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf  = vim.api.nvim_win_get_buf(win)
+        local name = vim.api.nvim_buf_get_name(buf)
+
+        if name ~= "" and not name:match("^fugitive://") then
+            return buf, win
+        end
+    end
+end
+
+local function diff_role(buf)
+    local name = vim.api.nvim_buf_get_name(buf)
+
+    if not name:match("^fugitive://") then
+        return "LOCAL"
+    end
+
+    if name:match("//2/") then return "BASE" end
+    if name:match("//3/") then return "REMOTE" end
+
+    return "FUGITIVE"
+end
+
+
+local function set_diff_winbars()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.wo[win].diff then
+            local role = diff_role(buf)
+
+            vim.wo[win].winbar = string.format(
+                " %%#DiffText# [%s] %%* %s",
+                role,
+                vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
+            )
+        end
+    end
+end
+
+function M.refresh_picker()
+    if not list_is_open() then return end
+    if not vim.api.nvim_buf_is_valid(M.list_buf) then return end
+
+    vim.api.nvim_buf_set_option(M.list_buf, "modifiable", true)
+    vim.api.nvim_buf_set_lines(M.list_buf, 0, -1, false, build_list_lines())
+    vim.api.nvim_buf_clear_namespace(M.list_buf, -1, 0, -1)
+
+    for i, file in ipairs(M.conflicts) do
+        local group = is_pending(file) and "MergePending" or "MergeResolved"
+        vim.api.nvim_buf_add_highlight(M.list_buf, -1, group, i - 1, 1, 4)
+    end
+
+    vim.api.nvim_buf_set_option(M.list_buf, "modifiable", false)
+end
+
+
 -----------------------------------------------------------------------
 -- Core logic
 -----------------------------------------------------------------------
@@ -103,6 +156,8 @@ local function open_current()
     cleanup_diff()
     vim.cmd("edit " .. file)
     vim.cmd("Gvdiffsplit!")
+
+    set_diff_winbars()
 
     vim.notify(
         string.format("Conflict %d/%d: %s", M.index, #M.conflicts, file),
@@ -128,6 +183,7 @@ function M.start()
 
     M.active = true
     M.index  = 1
+    M.resolved = {}
 
     vim.notify(
         string.format("Merge session started (%d conflicts)", #M.conflicts),
@@ -149,6 +205,7 @@ function M.finish()
 
     M.active    = false
     M.conflicts = {}
+    M.resolved  = {}
     M.index     = 0
     M.list_buf  = nil
     M.list_win  = nil
@@ -198,6 +255,14 @@ end
 function M.write_and_add()
     if not require_session() then return end
 
+    local buf, win = get_writable_buffer()
+    if not buf then
+        vim.notify("No writable file buffer found", vim.log.levels.ERROR)
+        return
+    end
+
+    vim.api.nvim_set_current_win(win)
+
     if has_conflict_markers(0) then
         vim.notify("Unresolved conflicts still exist", vim.log.levels.ERROR)
         vim.cmd("normal ]c")
@@ -213,15 +278,50 @@ function M.write_and_add()
     end
 
     vim.cmd("write")
-    vim.cmd("Git add " .. file)
+    vim.cmd("Git add " .. vim.fn.fnameescape(file))
+
+    M.resolved[file] = true
+    M.refresh_picker()
 
     vim.notify("File marked as resolved ✔", vim.log.levels.INFO)
 end
+
+function M.ignore_remote()
+    if not require_session() then return end
+
+    local file = M.conflicts[M.index]
+    if not file then
+        vim.notify("Invalid conflict", vim.log.levels.ERROR)
+        return
+    end
+
+    local answer = vim.fn.confirm(
+        "Ignore REMOTE changes and keep LOCAL version?\n\n" .. file,
+        "&Yes\n&No",
+        2
+    )
+
+    if answer ~= 1 then
+        vim.notify("Operation cancelled", vim.log.levels.INFO)
+        return
+    end
+
+    vim.cmd("Git checkout --ours -- " .. vim.fn.fnameescape(file))
+    vim.cmd("Git add -- " .. vim.fn.fnameescape(file))
+
+    M.resolved[file] = true
+    M.refresh_picker()
+
+    vim.notify("Remote ignored (kept LOCAL) ✔", vim.log.levels.INFO)
+end
+
 
 -----------------------------------------------------------------------
 -- Picker UI
 -----------------------------------------------------------------------
 function M.pick()
+    M.refresh_picker()
+
     if not require_session() then return end
 
     if list_is_open() then
@@ -278,6 +378,83 @@ function M.pick()
     end, { buffer = buf })
 end
 
+function M.take_base_current_file()
+    if not require_session() then return end
+
+    local buf = vim.api.nvim_get_current_buf()
+    local file = vim.api.nvim_buf_get_name(buf)
+
+    if file == "" or file:match("^fugitive://") then
+        vim.notify("Not a writable worktree file", vim.log.levels.ERROR)
+        return
+    end
+
+    local answer = vim.fn.confirm(
+        "Apply BASE to ALL conflicts in this file?\n\n" .. file,
+        "&Yes\n&No",
+        2
+    )
+
+    if answer ~= 1 then
+        vim.notify("Operation cancelled", vim.log.levels.INFO)
+        return
+    end
+
+    -- garante início do arquivo
+    vim.api.nvim_win_set_cursor(0, { 1, 0 })
+
+    while has_conflict_markers(buf) do
+        vim.cmd("diffget //2")
+        vim.cmd("normal ]c")
+    end
+
+    vim.cmd("write")
+    vim.cmd("Git add -- " .. vim.fn.fnameescape(file))
+
+    M.resolved[file] = true
+    M.refresh_picker()
+
+    vim.notify("All conflicts in file resolved using BASE ✔", vim.log.levels.INFO)
+end
+
+function M.take_remote_current_file()
+    if not require_session() then return end
+
+    local buf = vim.api.nvim_get_current_buf()
+    local file = vim.api.nvim_buf_get_name(buf)
+
+    if file == "" or file:match("^fugitive://") then
+        vim.notify("Not a writable worktree file", vim.log.levels.ERROR)
+        return
+    end
+
+    local answer = vim.fn.confirm(
+        "Apply REMOTE to ALL conflicts in this file?\n\n" .. file,
+        "&Yes\n&No",
+        2
+    )
+
+    if answer ~= 1 then
+        vim.notify("Operation cancelled", vim.log.levels.INFO)
+        return
+    end
+
+    vim.api.nvim_win_set_cursor(0, { 1, 0 })
+
+    while has_conflict_markers(buf) do
+        vim.cmd("diffget //3")
+        vim.cmd("normal ]c")
+    end
+
+    vim.cmd("write")
+    vim.cmd("Git add -- " .. vim.fn.fnameescape(file))
+
+    M.resolved[file] = true
+    M.refresh_picker()
+
+    vim.notify("All conflicts in file resolved using REMOTE ✔", vim.log.levels.INFO)
+end
+
 -----------------------------------------------------------------------
 -- Keybindings
 -----------------------------------------------------------------------
@@ -303,7 +480,7 @@ vim.keymap.set("n", "<leader>mw", M.write_and_add, vim.tbl_extend("force", opts,
     desc = "Merge: write & mark resolved",
 }))
 
-vim.keymap.set("n", "<leader>ml", ":diffget //2<CR>", vim.tbl_extend("force", opts, {
+vim.keymap.set("n", "<leader>mb", ":diffget //2<CR>", vim.tbl_extend("force", opts, {
     desc = "Merge: take LOCAL",
 }))
 
@@ -311,12 +488,21 @@ vim.keymap.set("n", "<leader>mr", ":diffget //3<CR>", vim.tbl_extend("force", op
     desc = "Merge: take REMOTE",
 }))
 
-vim.keymap.set("n", "<leader>mb", ":diffget //1<CR>", vim.tbl_extend("force", opts, {
-    desc = "Merge: take BASE",
-}))
-
 vim.keymap.set("n", "<leader>ma", M.pick, vim.tbl_extend("force", opts, {
     desc = "Merge: pick conflict",
 }))
+
+vim.keymap.set("n", "<leader>mi", M.ignore_remote, vim.tbl_extend("force", opts, {
+    desc = "Merge: ignore REMOTE (keep LOCAL)",
+}))
+
+vim.keymap.set("n", "<leader>mcb", M.take_base_current_file, vim.tbl_extend("force", opts, {
+    desc = "Merge: take BASE for current file",
+}))
+
+vim.keymap.set("n", "<leader>mcr", M.take_remote_current_file, vim.tbl_extend("force", opts, {
+    desc = "Merge: take REMOTE for current file",
+}))
+
 
 return M

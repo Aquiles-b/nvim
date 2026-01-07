@@ -422,9 +422,9 @@ lazy.setup({
 -- }}}
 
 -- Autocompletion --
--- {{{ copilot
+-- {{{ windsurf
 {
-    'github/copilot.vim',
+    'Exafunction/windsurf.vim',
 },
 -- }}}
 -- {{{ LSP + CMP + Mason
