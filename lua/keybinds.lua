@@ -34,11 +34,48 @@ map("n", "<leader>e", "<Cmd>NvimTreeToggle<CR>", opts)
 map("n", "<leader>ree", "<Cmd>NvimTreeToggle $PWD<CR>", opts)
 map("n", "<leader>reb", "<Cmd>NvimTreeFindFile<CR>", opts)
 map("n", "<leader>reh", "<Cmd>NvimTreeToggle ~/.<CR>", opts)
-map("n", "<leader>ren", "<Cmd>NvimTreeToggle ~/.config/nvim<CR>", opts)
+map("n", "<leader>ren",
+  "<Cmd>NvimTreeToggle " .. vim.fn.stdpath("config") .. "<CR>",
+  opts
+)
 --term
 map('t', '<C-n>', '<C-\\><C-n>', opts)
 map('n', '<A-i>', ':ToggleTerm direction=float<CR>', opts)
 map('t', '<A-i>', '<cmd>close<CR>', opts)
+
+vim.keymap.set("v", "<C-A-i>", function()
+  -- pega seleção visual
+  local start_pos = vim.fn.getpos("'<")
+  local end_pos = vim.fn.getpos("'>")
+
+  local lines = vim.fn.getline(start_pos[2], end_pos[2])
+  if #lines == 0 then return end
+
+  -- ajusta seleção (caso multiline)
+  lines[#lines] = string.sub(lines[#lines], 1, end_pos[3])
+  lines[1] = string.sub(lines[1], start_pos[3])
+
+  local selection = table.concat(lines, "\n")
+  local path = vim.trim(selection)
+
+  if path == "" then return end
+
+  -- verifica se já existe terminal aberto
+  local Terminal = require("toggleterm.terminal").Terminal
+  if _G._custom_term and _G._custom_term:is_open() then
+    _G._custom_term:close()
+    return
+  end
+
+  -- cria (ou reutiliza) terminal
+  _G._custom_term = Terminal:new({
+    dir = path,
+    direction = "float",
+  })
+
+  _G._custom_term:toggle()
+end, { noremap = true, silent = true })
+
 --Movimentacao
 map('i', '<A-f>', '<C-o><S-a>', opts)
 map('i', '<A-d>', '<C-o><S-i>', opts)
