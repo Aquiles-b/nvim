@@ -355,40 +355,52 @@ lazy.setup({
     },
     config = function()
         require("nvim-tree").setup({
+            log = {
+                enable = false,
+            },
             sort_by = "case_sensitive",
             actions = {
-                open_file = { quit_on_open = true }
+                open_file = {
+                    quit_on_open = true,
+                },
             },
             update_focused_file = {
                 enable = false,
-                update_cwd = false
+                update_cwd = false,
             },
-            view = { adaptive_size = true },
+            view = {
+                adaptive_size = true,
+            },
             filters = {
-                custom = { '^.git$', '^node_modules$' }
+                custom = { "^.git$", "^node_modules$" },
             },
             git = {
-                enable = false
+                enable = false,
             },
-            log = {
-                enable = true,
-                types = {
-                    diagnostics = true
-                }
+            renderer = {
+                symlink_destination = false,
+                icons = {
+                    glyphs = {
+                        symlink = "",
+                        folder = {
+                            symlink = "",
+                            symlink_open = "",
+                        },
+                    },
+                },
             },
             diagnostics = {
                 enable = true,
                 show_on_dirs = false,
                 debounce_delay = 50,
                 icons = {
-                    hint = '│',
-                    info = '│',
-                    warning = '│',
-                    error = '│'
-                }
-            }
+                    hint = "│",
+                    info = "│",
+                    warning = "│",
+                    error = "│",
+                },
+            },
         })
-
     end,
 },
 --}}}
@@ -421,10 +433,38 @@ lazy.setup({
 },
 -- }}}
 
+-- QoL
+-- {{{ Snacks
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        ---@type snacks.Config
+        opts = {},
+        keys = {},
+        picker = { enabled = false },
+    },
+-- }}}
+
+-- Claude code
+-- {{{ claudecode
+{
+    "coder/claudecode.nvim",
+    dependencies = { "folke/snacks.nvim" },
+    lazy = false,
+    config = function()
+        require("claudecode").setup({})
+    end,
+},
+-- }}}
+
 -- Autocompletion --
 -- {{{ windsurf
 {
     'Exafunction/windsurf.vim',
+    config = function()
+        vim.g.codeium_disable_bindings = 1
+    end
 },
 -- }}}
 -- {{{ LSP + CMP + Mason
@@ -445,7 +485,7 @@ dependencies = {
         {"neovim/nvim-lspconfig"},
         -- }}}
 
-        -- Formatting --
+-- Formatting --
         -- {{{ conform
         {
             'stevearc/conform.nvim',
@@ -453,7 +493,7 @@ dependencies = {
         },
         -- }}}
 
-        -- Git ---
+-- Git ---
         -- {{{ gitsigns
         {
             'lewis6991/gitsigns.nvim',
@@ -521,7 +561,7 @@ dependencies = {
         },
         -- }}}
 
-        -- Latex -- 
+-- Latex -- 
         -- {{{ Vimtex
         {
             "lervag/vimtex",
@@ -533,7 +573,7 @@ dependencies = {
         },
         -- }}}
 
-        -- Markdown --
+-- Markdown --
         -- {{{ render-markdown
         {
             'MeanderingProgrammer/render-markdown.nvim',
@@ -571,6 +611,5 @@ dependencies = {
             end
         },
         -- }}}
-
-    }) -- lazy setup
+}) -- lazy setup
 
