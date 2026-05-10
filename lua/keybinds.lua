@@ -108,66 +108,8 @@ map('n', '<A-c>', ':bdelete!<CR>', opts)
 vim.keymap.set({"n", "v"}, "j", [[v:count ? (v:count >=3 ? "m'" . v:count : "") . "j" : "j"]], { expr = true })
 vim.keymap.set({"n", "v"}, "k", [[v:count ? (v:count >= 3 ? "m'" . v:count : "") . "k" : "k"]], { expr = true })
 
------------------------------------------------------------------------
--- Codeium (windsurf.vim) keymaps
------------------------------------------------------------------------
-
--- Aceitar sugestão inteira
-vim.keymap.set('i', '<A-m>', function()
-    return vim.fn['codeium#Accept']()
-end, {
-    expr = true,
-    silent = true,
-})
-
--- Aceitar apenas UMA palavra
-vim.keymap.set('i', '<A-M>', function()
-    return vim.fn['codeium#AcceptNextWord']()
-end, {
-    expr = true,
-    silent = true,
-})
-
--- Aceitar UMA linha inteira
-vim.keymap.set('i', '<A-l>', function()
-    return vim.fn['codeium#AcceptNextLine']()
-end, {
-    expr = true,
-    silent = true,
-})
-
--- Dismiss / limpar sugestão
-vim.keymap.set('i', '<A-n>', function()
-    vim.fn['codeium#Clear']()
-    return ''
-end, {
-    expr = true,
-    silent = true,
-})
-
--- Ciclar sugestões
-vim.keymap.set('i', '<A-,>', '<Cmd>call codeium#CycleCompletions(-1)<CR>', {
-    silent = true,
-})
-vim.keymap.set('i', '<A-.>', '<Cmd>call codeium#CycleCompletions(1)<CR>', {
-    silent = true,
-})
-
-local codeium_enabled = true
-
-function ToggleCodeium()
-    if codeium_enabled then
-        vim.cmd('CodeiumDisable')
-        codeium_enabled = false
-        vim.notify('Codeium disabled', vim.log.levels.INFO)
-    else
-        vim.cmd('CodeiumEnable')
-        codeium_enabled = true
-        vim.notify('Codeium enabled', vim.log.levels.INFO)
-    end
-end
-
-vim.keymap.set('n', '<leader>tc', ToggleCodeium, { silent = true })
+-- Copilot toggle
+vim.keymap.set("n", "<leader>tc", "<cmd>Copilot toggle<CR>", opts)
 
 -- Claude code -----------------
 map("n", "<leader>ac", "<cmd>ClaudeCode<cr>", { desc = "Toggle Claude" })
