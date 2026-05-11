@@ -470,12 +470,39 @@ lazy.setup({
 -- }}}
 
 -- Autocompletion --
--- {{{ windsurf
+-- {{{ copilot
 {
-    'Exafunction/windsurf.vim',
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+
     config = function()
-        vim.g.codeium_disable_bindings = 1
-    end
+        require("copilot").setup({
+            panel = {
+                enabled = false,
+            },
+
+            suggestion = {
+                enabled = true,
+                auto_trigger = true,
+
+                hide_during_completion = false,
+
+                keymap = {
+                    accept = "<A-m>",
+                    accept_word = "<A-M>",
+                    accept_line = "<A-l>",
+                    next = "<A-.>",
+                    prev = "<A-,>",
+                    dismiss = "<A-n>",
+                },
+            },
+        })
+        
+        vim.defer_fn(function()
+            vim.cmd("Copilot toggle")
+        end, 100)
+    end,
 },
 -- }}}
 -- {{{ LSP + CMP + Mason
