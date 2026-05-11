@@ -157,7 +157,7 @@ lazy.setup({
         'nvim-lualine/lualine.nvim',
         opts = {
             options = {
-                disabled_filetypes = { statusline = {'packer','NvimTree'} },
+                disabled_filetypes = { statusline = {'packer','NvimTree', "Avante", "AvanteInput", "AvanteSelectedFiles"} },
                 icons_enabled = true,
                 theme = 'auto',
                 component_separators = { left = '', right = ''},
@@ -459,13 +459,58 @@ lazy.setup({
 
 -- Claude code
 -- {{{ claudecode
+-- {
+--     "coder/claudecode.nvim",
+--     dependencies = { "folke/snacks.nvim" },
+--     lazy = false,
+--     config = function()
+--         require("claudecode").setup({})
+--     end,
+-- },
+-- }}}
+
+-- Avante
+-- {{{ avante
 {
-    "coder/claudecode.nvim",
-    dependencies = { "folke/snacks.nvim" },
-    lazy = false,
-    config = function()
-        require("claudecode").setup({})
-    end,
+    "yetone/avante.nvim",
+
+    build = vim.fn.has("win32") ~= 0
+      and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+      or "make",
+
+    event = "VeryLazy",
+
+    opts = {
+        provider = "copilot",
+        instructions_file = "avante.md",
+
+        providers = {
+            copilot = {
+                model = "claude-opus-4.6",
+            },
+        },
+    },
+
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "MunifTanjim/nui.nvim",
+        "nvim-tree/nvim-web-devicons",
+        "zbirenbaum/copilot.lua",
+
+        {
+            "MeanderingProgrammer/render-markdown.nvim",
+            ft = { "markdown", "Avante" },
+
+            opts = {
+                file_types = { "markdown", "Avante" },
+            },
+        },
+
+        {
+            "stevearc/dressing.nvim",
+            opts = {},
+        },
+    },
 },
 -- }}}
 
@@ -620,7 +665,9 @@ dependencies = {
             -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
             ---@module 'render-markdown'
             ---@type render.md.UserConfig
-            opts = {},
+            opts = {
+                file_types = { "markdown", "Avante" },
+            },
             config = function()
                 require('render-markdown').setup({})
             end,
