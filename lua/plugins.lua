@@ -446,15 +446,15 @@ lazy.setup({
 
 -- QoL
 -- {{{ Snacks
-    {
-        "folke/snacks.nvim",
-        priority = 1000,
-        lazy = false,
-        ---@type snacks.Config
-        opts = {},
-        keys = {},
-        picker = { enabled = false },
+{
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+        bigfile = { enabled = true },
+        quickfile = { enabled = true }, -- opcional, mas útil
     },
+},
 -- }}}
 
 -- Claude code
