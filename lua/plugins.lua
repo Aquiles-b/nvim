@@ -452,7 +452,9 @@ lazy.setup({
     lazy = false,
     opts = {
         bigfile = { enabled = true },
-        quickfile = { enabled = true }, -- opcional, mas útil
+        quickfile = { enabled = true },
+        words = { enabled = true },
+
     },
 },
 -- }}}
@@ -481,6 +483,7 @@ lazy.setup({
     event = "VeryLazy",
 
     opts = {
+        selection = { hint_display = "none", },
         provider = "copilot",
         instructions_file = "avante.md",
 
@@ -504,11 +507,6 @@ lazy.setup({
             opts = {
                 file_types = { "markdown", "Avante" },
             },
-        },
-
-        {
-            "stevearc/dressing.nvim",
-            opts = {},
         },
     },
 },
@@ -543,10 +541,6 @@ lazy.setup({
                 },
             },
         })
-        
-        vim.defer_fn(function()
-            vim.cmd("Copilot toggle")
-        end, 100)
     end,
 },
 -- }}}

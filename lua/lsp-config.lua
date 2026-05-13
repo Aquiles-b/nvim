@@ -139,17 +139,21 @@ end, { noremap = true, silent = true })-----------------------------------------
 local on_attach = function(client, bufnr)
 end
 
--- Setup LSP with Mason-lspconfig --
-local mason_lspconfig = require("mason-lspconfig")
-local cmp_nvim_lsp = require("cmp_nvim_lsp") 
--- Catch all installed servers from Mason and configure them 
-local installed_servers = mason_lspconfig.get_installed_servers()
-local capabilities = cmp_nvim_lsp.default_capabilities() 
+require("mason-lspconfig").setup({
+    automatic_enable = true,
+})
 
-for _, server in ipairs(installed_servers) do
-    vim.lsp.config(server, {
-      on_attach = on_attach,
-      capabilities = capabilities,
-    })
-    vim.lsp.enable(server)
-end
+-- Setup LSP with Mason-lspconfig --
+-- local mason_lspconfig = require("mason-lspconfig")
+-- local cmp_nvim_lsp = require("cmp_nvim_lsp") 
+-- Catch all installed servers from Mason and configure them 
+-- local installed_servers = mason_lspconfig.get_installed_servers()
+-- local capabilities = cmp_nvim_lsp.default_capabilities() 
+
+-- for _, server in ipairs(installed_servers) do
+--     vim.lsp.config(server, {
+--       on_attach = on_attach,
+--       capabilities = capabilities,
+--     })
+--     vim.lsp.enable(server)
+-- end

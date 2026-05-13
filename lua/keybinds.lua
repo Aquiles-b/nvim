@@ -109,7 +109,23 @@ vim.keymap.set({"n", "v"}, "j", [[v:count ? (v:count >=3 ? "m'" . v:count : "") 
 vim.keymap.set({"n", "v"}, "k", [[v:count ? (v:count >= 3 ? "m'" . v:count : "") . "k" : "k"]], { expr = true })
 
 -- Copilot toggle
-vim.keymap.set("n", "<leader>tc", "<cmd>Copilot toggle<CR>", opts)
+vim.g.ai_enabled = true
+
+local function toggle_ai()
+    vim.g.ai_enabled = not vim.g.ai_enabled
+
+    if vim.g.ai_enabled then
+        vim.cmd("Copilot toggle")
+        vim.notify("copilot enabled", vim.log.levels.WARN)
+    else
+        vim.cmd("Copilot toggle")
+        vim.notify("Copilot disable", vim.log.levels.WARN)
+    end
+end
+
+vim.keymap.set("n", "<leader>tc", toggle_ai, {
+    desc = "Toggle AI",
+})
 
 -- Claude code -----------------
 map("n", "<leader>ac", "<cmd>ClaudeCode<cr>", { desc = "Toggle Claude" })
