@@ -626,11 +626,19 @@ dependencies = {
             end,
         },
         -- }}}
-        -- {{{ fugitive
-        {
-            "tpope/vim-fugitive",
-        },
         -- }}}
+        -- {{{ Neogit
+            {
+                "NeogitOrg/neogit",
+                lazy = true,
+                dependencies = {
+                    "sindrets/diffview.nvim",
+                    "m00qek/baleia.nvim",
+                    "nvim-telescope/telescope.nvim",
+                },
+                cmd = "Neogit",
+            },
+            -- }}}
         -- {{{ Diff.nvim
         {
             "esmuellert/vscode-diff.nvim",

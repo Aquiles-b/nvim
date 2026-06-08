@@ -5,6 +5,10 @@ local opts = {noremap = true, silent = true}
 -- replace in selected area
 vim.keymap.set({ "n", "v" }, "©", [[:s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
 
+-- Git 
+map('n', '<leader>gg', ':Neogit<CR>', opts)
+map('n', '<leader>gb', ':Neogit cwd=%:p:h<CR>', opts)
+
 -- Toggle markdown
 map('n', '<leader>tm', ':RenderMarkdown toggle<CR>', opts)
 
