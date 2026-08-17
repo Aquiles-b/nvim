@@ -11,6 +11,10 @@ map('n', '<leader>gb', ':Neogit cwd=%:p:h<CR>', opts)
 
 -- Toggle markdown
 map('n', '<leader>tm', ':RenderMarkdown toggle<CR>', opts)
+-- markdown on browser
+map("n", "<leader>mps", "<cmd>MarkdownPreview<cr>", { desc = "Markdown: Start preview" })
+map("n", "<leader>mpS", "<cmd>MarkdownPreviewStop<cr>", { desc = "Markdown: Stop preview" })
+map("n", "<leader>mpr", "<cmd>MarkdownPreviewRefresh<cr>", { desc = "Markdown: Refresh preview" })
 
 --autoindent altgr+c
 map('n', '₢', "mmgg=G'mzz", opts)
