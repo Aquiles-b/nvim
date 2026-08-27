@@ -26,6 +26,8 @@ else
     shell = "bash"
 end
 
+local ai_enabled = vim.g.ai_enabled == true
+
 lazy.setup({
     -- Colorschemes --
     -- {{{ Catppuccin
@@ -463,6 +465,7 @@ lazy.setup({
 -- {{{ claudecode
 -- {
 --     "coder/claudecode.nvim",
+--     cond = ai_enabled,
 --     dependencies = { "folke/snacks.nvim" },
 --     lazy = false,
 --     config = function()
@@ -476,6 +479,7 @@ lazy.setup({
 {
     "yetone/avante.nvim",
 
+    cond = ai_enabled,
     build = vim.fn.has("win32") ~= 0
       and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
       or "make",
@@ -514,6 +518,7 @@ lazy.setup({
 -- {{{ copilot
 {
     "zbirenbaum/copilot.lua",
+    cond = ai_enabled,
     cmd = "Copilot",
     event = "InsertEnter",
 
