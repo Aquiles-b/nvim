@@ -97,10 +97,6 @@ map('i', '<A-;>', '<Esc><S-a>;<Esc>', opts)
 
 map('n', '<leader>fe', '<cmd>Outline<CR>', opts)
 
---Mover seleção de código
-map('v', '<C-j>', ":m '>+1<CR>gv=gv", opts)
-map('v', '<C-k>', ":m '<-2<CR>gv=gv", opts)
-
 map('n', '<C-h>', '<C-w>h', opts)
 map('n', '<C-l>', '<C-w>l', opts)
 map('n', '<C-k>', '<C-w>k', opts)
@@ -111,6 +107,9 @@ map('n', '<A-l>', ':bnext<CR>', opts)
 map('n', '<A-h>', ':bprevious<CR>', opts)
 -- Close buffer
 map('n', '<A-c>', ':bdelete!<CR>', opts)
+
+-- Create buffer by file path
+map('n', 'gF', '<C-w>gf', opts)
 
 -- Make J and K part of jumplist
 vim.keymap.set({"n", "v"}, "j", [[v:count ? (v:count >=3 ? "m'" . v:count : "") . "j" : "j"]], { expr = true })

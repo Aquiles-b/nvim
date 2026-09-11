@@ -26,6 +26,7 @@ else
     shell = "bash"
 end
 
+-- '/usr/bin/nvim-linux-x86_64.appimage --cmd "let g:ai_enabled = v:true"'
 local ai_enabled = vim.g.ai_enabled == true
 
 lazy.setup({
