@@ -494,7 +494,7 @@ lazy.setup({
 
         providers = {
             copilot = {
-                model = "claude-opus-4.6",
+                model = "claude-sonnet-5",
             },
         },
     },
